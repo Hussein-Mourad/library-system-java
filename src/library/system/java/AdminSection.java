@@ -38,7 +38,8 @@ public class AdminSection extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
-        setLocation(getLocationOnScreen());
+        setLocation(new java.awt.Point(0, 0));
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
 
