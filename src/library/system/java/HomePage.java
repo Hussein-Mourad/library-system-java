@@ -158,7 +158,7 @@ public class HomePage extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-            private void setVisible(boolean b) {
+            public void setVisible(boolean b) {
                 throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
             }
         }
