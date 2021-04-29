@@ -5,6 +5,8 @@
  */
 package library.system.java;
 
+import javax.swing.JOptionPane;
+
 /**
  *
  * @author hussein
@@ -36,6 +38,7 @@ public class AdminSection extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
+        setLocation(getLocationOnScreen());
         setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
 
@@ -50,6 +53,11 @@ public class AdminSection extends javax.swing.JFrame {
         });
 
         jButton2.setText("View Librarian");
+        jButton2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jButton2ActionPerformed(evt);
+            }
+        });
 
         jButton3.setText("Delete Librarian");
         jButton3.addActionListener(new java.awt.event.ActionListener() {
@@ -95,8 +103,6 @@ public class AdminSection extends javax.swing.JFrame {
                 .addContainerGap(16, Short.MAX_VALUE))
         );
 
-        jButton4.getAccessibleContext().setAccessibleName("Logout");
-
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
         layout.setHorizontalGroup(
@@ -123,13 +129,18 @@ public class AdminSection extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        // TODO add your handling code here:
+        JOptionPane.showMessageDialog(this, "A Librarian Deleted successfully");
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
         this.setVisible(false);
         new AddLibrarianForm().setVisible(true);
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
+        this.setVisible(false);
+        new LibrariansTable().setVisible(true);
+    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -159,10 +170,8 @@ public class AdminSection extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminSection().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AdminSection().setVisible(true);
         });
     }
 
