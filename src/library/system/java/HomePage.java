@@ -108,15 +108,9 @@ public class HomePage extends javax.swing.JFrame {
     }//GEN-LAST:event_adminLoginButtonActionPerformed
 
     private void librarianLoginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_librarianLoginButtonActionPerformed
-        // TODO add your handling code here:
+        this.setVisible(false);
+        new LibrarianFormLogin().setVisible(true);
     }//GEN-LAST:event_librarianLoginButtonActionPerformed
-
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-       new LibrarianFormLogin().setVisible(true);
-        this.setVisible(false);   
-        
-        
-    }//GEN-LAST:event_jButton2ActionPerformed
 
     /**
      * @param args the command line arguments
@@ -158,7 +152,5 @@ public class HomePage extends javax.swing.JFrame {
         throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
     }
 
-            public void setVisible(boolean b) {
-                throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
-            }
-        }
+
+}
