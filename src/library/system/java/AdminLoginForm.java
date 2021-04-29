@@ -40,6 +40,7 @@ public class AdminLoginForm extends javax.swing.JFrame {
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
         setLocation(new java.awt.Point(1366, 0));
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
 
@@ -137,7 +138,7 @@ public class AdminLoginForm extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
-        setBounds(0, 0, 410, 330);
+        pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
