@@ -38,8 +38,7 @@ public class AdminSection extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
-        setLocation(new java.awt.Point(0, 0));
-        setLocationByPlatform(true);
+        setLocation(new java.awt.Point(1366, 0));
         setMinimumSize(new java.awt.Dimension(400, 300));
         setResizable(false);
 
@@ -120,7 +119,7 @@ public class AdminSection extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-
+        setLocationRelativeTo(null);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -130,7 +129,8 @@ public class AdminSection extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton4ActionPerformed
 
     private void jButton3ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton3ActionPerformed
-        JOptionPane.showMessageDialog(this, "A Librarian Deleted successfully");
+       this.setVisible(false);
+       new DeleteLibrarianForm().setVisible(true);
     }//GEN-LAST:event_jButton3ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed

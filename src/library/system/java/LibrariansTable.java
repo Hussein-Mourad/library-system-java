@@ -34,7 +34,7 @@ public class LibrariansTable extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
-        setLocation(new java.awt.Point(0, 0));
+        setLocation(new java.awt.Point(1366, 0));
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -49,23 +49,16 @@ public class LibrariansTable extends javax.swing.JFrame {
 
         jTable1.setModel(new javax.swing.table.DefaultTableModel(
             new Object [][] {
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null},
-                {null, null, null, null, null, null, null}
+                {"1", "Ahmed", "test123", "ahmed@test.com", "123 main st", "alex", "0105132465"},
+                {"2", "Mohamed", "dfklg", "moh@app.com", "123 main st", "alex", "0104878897"},
+                {"3", "Hussein", "kljlkj", "hussein@gmail.com", "123 main st.", "alex", "01847987"},
+                {"4", "Omar", "lkjlk;;", "omar@test.com", "123 main st.", "alex", "0189749874"},
+                {"5", "Sherif", "90ukjhk", "sherif@test.com", "123 main st", "alex", null}
             },
             new String [] {
                 "id", "name", "password", "email", "address", "city", "contact"
             }
-        ) {
-            boolean[] canEdit = new boolean [] {
-                false, false, false, false, false, false, false
-            };
-
-            public boolean isCellEditable(int rowIndex, int columnIndex) {
-                return canEdit [columnIndex];
-            }
-        });
+        ));
         jScrollPane1.setViewportView(jTable1);
 
         jButton1.setText("Back");
@@ -101,7 +94,7 @@ public class LibrariansTable extends javax.swing.JFrame {
                     .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                 .addContainerGap())
         );
-
+setLocationRelativeTo(null);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 

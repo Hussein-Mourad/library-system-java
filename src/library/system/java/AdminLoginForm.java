@@ -5,6 +5,8 @@
  */
 package library.system.java;
 
+import javax.swing.JOptionPane;
+
 
 /**
  *
@@ -137,15 +139,19 @@ public class AdminLoginForm extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
-
+        setLocationRelativeTo(null);
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
     
     
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        new AdminSection().setVisible(true);
-        this.setVisible(false);
+        if(!this.nameTextField.getText().equals("") && !this.passwordTextField.getText().equals("")){
+            new AdminSection().setVisible(true);
+            this.setVisible(false);
+        } else {
+            JOptionPane.showMessageDialog(this,"Please enter username and password");
+        }
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
