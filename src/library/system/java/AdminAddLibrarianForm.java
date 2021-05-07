@@ -5,6 +5,7 @@
  */
 package library.system.java;
 
+import java.util.regex.Pattern;
 import javax.swing.*;
 
 /**
@@ -179,7 +180,27 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cityTextFieldActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Librarian Added Successfully");
+        System.out.println(this.passwordTextField.getPassword());
+        if (this.nameTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter a name");
+        } else if (this.passwordTextField.getPassword().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter a password");
+        } else if (this.emailTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter an email");
+        } else if (this.cityTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter a city");
+        } else if (this.contactNoTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter a contact number");
+        } else if (!Pattern.compile("^(.+)@(.+)$").matcher(this.emailTextField.getText()).matches()) {
+            JOptionPane.showMessageDialog(this, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!Pattern.compile("^[0-9]$").matcher(this.contactNoTextField.getText()).matches()) {
+            JOptionPane.showMessageDialog(this, "Invalid contact number", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (this.addressTextField.getText().equals("")) {
+            this.addressTextField.setText(null);
+        } else {
+            JOptionPane.showConfirmDialog(this, "Librarian Added Successfully");
+        }
+
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
