@@ -5,18 +5,35 @@
  */
 package library.system.java;
 
+import javax.print.attribute.standard.MediaSize;
+import javax.swing.*;
+import java.awt.event.ActionEvent;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+
 /**
  *
  * @author mohamed abdelwahab
  */
 public class LibrarianFormLogin extends javax.swing.JFrame {
+    private String NAME ;
+    private String PASS ;
 
     /**
      * Creates new form LibrarianFormLogin
      */
+
     public LibrarianFormLogin() {
+        try {
+            readCredentialData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -48,16 +65,22 @@ public class LibrarianFormLogin extends javax.swing.JFrame {
             }
         });
 
-        passwordTextField.setText("****");
+        passwordTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                passwordTextFieldActionPerformed(evt);
+            }
+        });
 
         passwordLabel.setText("Password:");
 
         nameLabel.setText("Enter Name:");
 
-        nameTextField.setText("Agent");
         nameTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 nameTextFieldActionPerformed(evt);
+            }
+
+            private void nameTextFieldActionPerformed(ActionEvent evt) {
             }
         });
 
@@ -124,16 +147,44 @@ public class LibrarianFormLogin extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+    
 
-    private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        this.setVisible(false);
-        new LibrarianSection().setVisible(true);
+    private void loginButtonActionPerformed(ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
+        if (this.nameTextField.getText().equals(this.NAME) && this.passwordTextField.getText().equals(this.PASS)) {
+            new LibrarianSection().setVisible(true);
+            this.setVisible(false);
+        } else if (this.nameTextField.getText().equals("") && this.passwordTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter username and password");
+        } else if (this.nameTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter username");
+        } else if (this.passwordTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter password");
+        } else {
+            JOptionPane.showMessageDialog(this, "Invalid username or password");
+        }
+
     }//GEN-LAST:event_loginButtonActionPerformed
 
-    private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
+    private void passwordTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_passwordTextFieldActionPerformed
         // TODO add your handling code here:
-    }//GEN-LAST:event_nameTextFieldActionPerformed
+    }//GEN-LAST:event_passwordTextFieldActionPerformed
+    private void readCredentialData() throws IOException {
+        String filename = "credentials.csv";
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        String line = "";
 
+        //parsing a CSV file into BufferedReader class constructor
+        BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
+        while ((line = br.readLine()) != null)   //returns a Boolean value
+        {
+            String[] arr = line.split(",");
+            if (arr[0].equals("librarian")) {
+                NAME     = arr[1];
+                PASS = arr[2];
+            }
+        }
+    }
     /**
      * @param args the command line arguments
      */
