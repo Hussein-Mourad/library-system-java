@@ -5,18 +5,34 @@
  */
 package library.system.java;
 
+import javax.swing.table.DefaultTableModel;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.ArrayList;
+
 /**
  *
  * @author hussein
  */
 public class LibrarianBooksTable extends javax.swing.JFrame {
+    private String[] TableH;
+    private ArrayList<Object[]> booksdata = new ArrayList<>();
+    private Object[][] TableO;
 
     /**
      * Creates new form BooksTable
      */
     public LibrarianBooksTable() {
+        try {
+            databooks();
+        } catch ( IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
+
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -44,19 +60,9 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
             }
         });
 
-        booksTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "A@4", "23", "KK", "932992932"},
-                {"2", "A@4", "335", "Sumdeh", "95676555756"},
-                {"3", "A@4", "87", "Abishet", "9329882382"},
-                {"4", "K@8", "100", "Vmal", "9990449336"}
-            },
-            new String [] {
-                "Id", "BookCallNo", "StudentId", "StudentName", "StudentContact"
-            }
-        ) {
+        booksTable.setModel(new javax.swing.table.DefaultTableModel(TableO,TableH) {
             boolean[] canEdit = new boolean [] {
-                false, false, false, false, false
+                true, false, true, true, true, true, true, true
             };
 
             public boolean isCellEditable(int rowIndex, int columnIndex) {
@@ -65,13 +71,6 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
         });
         booksTable.setToolTipText("");
         jScrollPane1.setViewportView(booksTable);
-        if (booksTable.getColumnModel().getColumnCount() > 0) {
-            booksTable.getColumnModel().getColumn(0).setResizable(false);
-            booksTable.getColumnModel().getColumn(1).setResizable(false);
-            booksTable.getColumnModel().getColumn(2).setResizable(false);
-            booksTable.getColumnModel().getColumn(3).setResizable(false);
-            booksTable.getColumnModel().getColumn(4).setResizable(false);
-        }
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
@@ -114,6 +113,31 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
         this.setVisible(false);
         new LibrarianSection().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
+    private void databooks() throws IOException {
+        String filename = "books.csv";
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        String line = "";
+
+        //parsing a CSV file into BufferedReader class constructor
+        BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
+        while ((line = br.readLine()) != null)   //returns a Boolean value
+        {
+            String[] arr = line.split(",");
+            if (arr[0].equals("Id")) {
+                TableH = new String[arr.length];
+                TableH = arr;
+            } else {
+                booksdata.add(arr);
+            }
+        }
+        TableO = new String[booksdata.size()][];
+        for (int i = 0; i < booksdata.size(); i++) {
+            Object[] row = booksdata.get(i);
+            TableO[i] = row;
+        }
+
+    }
 
     /**
      * @param args the command line arguments
