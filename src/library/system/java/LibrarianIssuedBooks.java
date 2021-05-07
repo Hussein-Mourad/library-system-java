@@ -9,12 +9,12 @@ package library.system.java;
  *
  * @author mohamed abdelwahab
  */
-public class IssuedBooks extends javax.swing.JFrame {
+public class LibrarianIssuedBooks extends javax.swing.JFrame {
 
     /**
      * Creates new form IssuedBooks
      */
-    public IssuedBooks() {
+    public LibrarianIssuedBooks() {
         initComponents();
     }
 
@@ -90,7 +90,7 @@ public class IssuedBooks extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-        setLocationRelativeTo(null);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -116,20 +116,21 @@ public class IssuedBooks extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(IssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianIssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(IssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianIssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(IssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianIssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(IssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianIssuedBooks.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new IssuedBooks().setVisible(true);
+                new LibrarianIssuedBooks().setVisible(true);
             }
         });
     }

@@ -5,22 +5,29 @@
  */
 package library.system.java;
 
-import java.io.*;
-import java.util.Scanner;
-import javax.swing.JOptionPane;
+import javax.swing.*;
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
 
 
 /**
  * @author hussein
  */
 public class AdminLoginForm extends javax.swing.JFrame {
-    private static String username;
-    private static String password;
+    private String username;
+    private String password;
 
     /**
      * Creates new form AdminLoginForm
      */
     public AdminLoginForm() {
+        try {
+            readCredentialData();
+        } catch (IOException e) {
+            e.printStackTrace();
+        }
         initComponents();
     }
 
@@ -157,12 +164,16 @@ public class AdminLoginForm extends javax.swing.JFrame {
         if (this.nameTextField.getText().equals(this.username) && this.passwordTextField.getText().equals(this.password)) {
             new AdminSection().setVisible(true);
             this.setVisible(false);
-
-        }else if (this.nameTextField.getText().equals("") || this.passwordTextField.getText().equals("")) {
+        } else if (this.nameTextField.getText().equals("") && this.passwordTextField.getText().equals("")) {
             JOptionPane.showMessageDialog(this, "Please enter username and password");
+        } else if (this.nameTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter username");
+        } else if (this.passwordTextField.getText().equals("")) {
+            JOptionPane.showMessageDialog(this, "Please enter password");
         } else {
             JOptionPane.showMessageDialog(this, "Invalid username or password");
         }
+
     }//GEN-LAST:event_loginButtonActionPerformed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
@@ -173,6 +184,25 @@ public class AdminLoginForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_passwordTextFieldActionPerformed
 
+
+    private void readCredentialData() throws IOException {
+        String filename = "credentials.csv";
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        String line = "";
+
+        //parsing a CSV file into BufferedReader class constructor
+        BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
+        while ((line = br.readLine()) != null)   //returns a Boolean value
+        {
+            String[] arr = line.split(",");
+            if (arr[0].equals("admin")) {
+                username = arr[1];
+                password = arr[2];
+            }
+        }
+    }
+    
     /**
      * @param args the command line arguments
      */
@@ -204,28 +234,6 @@ public class AdminLoginForm extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(() -> {
             new AdminLoginForm().setVisible(true);
         });
-
-        String filename = "admin.csv";
-        String workingDirectory = System.getProperty("user.dir");
-        String absoluteFilePath = "";
-
-        //absoluteFilePath = workingDirectory + System.getProperty("file.separator") + filename;
-        absoluteFilePath = workingDirectory + File.separator + filename;
-        String line = "";
-
-        try {
-//parsing a CSV file into BufferedReader class constructor
-            BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
-            while ((line = br.readLine()) != null)   //returns a Boolean value
-            {
-                String[] admin = line.split(",");
-                // use comma as separator
-                username=admin[0];
-                password=admin[1];
-            }
-        } catch (IOException e) {
-            e.printStackTrace();
-        }
     }
 
 

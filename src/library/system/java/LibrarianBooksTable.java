@@ -9,12 +9,12 @@ package library.system.java;
  *
  * @author hussein
  */
-public class BooksTable extends javax.swing.JFrame {
+public class LibrarianBooksTable extends javax.swing.JFrame {
 
     /**
      * Creates new form BooksTable
      */
-    public BooksTable() {
+    public LibrarianBooksTable() {
         initComponents();
     }
 
@@ -106,7 +106,7 @@ public class BooksTable extends javax.swing.JFrame {
                 .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
         );
-setLocationRelativeTo(null);
+
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
@@ -132,20 +132,21 @@ setLocationRelativeTo(null);
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(BooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianBooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(BooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianBooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(BooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianBooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(BooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(LibrarianBooksTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
-                new BooksTable().setVisible(true);
+                new LibrarianBooksTable().setVisible(true);
             }
         });
     }
