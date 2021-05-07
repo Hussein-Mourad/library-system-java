@@ -78,40 +78,40 @@
                 <Property name="model" type="javax.swing.table.TableModel" editor="org.netbeans.modules.form.editors2.TableModelEditor">
                   <Table columnCount="6" rowCount="4">
                     <Column editable="true" title="Id" type="java.lang.Object">
-                      <Data value="1"/>
-                      <Data value="2"/>
-                      <Data value="3"/>
-                      <Data value="4"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                     <Column editable="true" title="BookCallNo" type="java.lang.Object">
-                      <Data value="A@4"/>
-                      <Data value="A@4"/>
-                      <Data value="A@4"/>
-                      <Data value="K@8"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                     <Column editable="true" title="StudentId" type="java.lang.Object">
-                      <Data value="23"/>
-                      <Data value="335"/>
-                      <Data value="87"/>
-                      <Data value="100"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                     <Column editable="true" title="StudentName" type="java.lang.Object">
-                      <Data value="KK"/>
-                      <Data value="Sumdeh"/>
-                      <Data value="Abishet"/>
-                      <Data value="Vmal"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                     <Column editable="true" title="StudentContact" type="java.lang.Object">
-                      <Data value="932992932"/>
-                      <Data value="95676555756"/>
-                      <Data value="9329882382"/>
-                      <Data value="9990449336"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                     <Column editable="true" title="IssueDate" type="java.lang.Object">
-                      <Data value="2016-07-20 00 13"/>
-                      <Data value="2016-07-20 00 14"/>
-                      <Data value="2016-07-20 00 16"/>
-                      <Data value="2016-07-20 1 38"/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
+                      <Data value=""/>
                     </Column>
                   </Table>
                 </Property>
