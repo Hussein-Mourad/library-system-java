@@ -8,8 +8,11 @@ package library.system.java;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
+import java.io.FileWriter;
 import java.io.IOException;
-import java.util.HashMap;
+import java.util.ArrayList;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -18,12 +21,19 @@ import javax.swing.JOptionPane;
  */
 public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
 
-    private HashMap<Integer, String> librarians = new HashMap<>();
+    private ArrayList<String[]> librarians = new ArrayList<>();
 
     /**
      * Creates new form DeleteLibrarianForm
      */
     public AdminDeleteLibrarianForm() {
+
+        try {
+            readLibrariansData();
+        } catch (IOException ex) {
+            Logger.getLogger(AdminDeleteLibrarianForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
         initComponents();
     }
 
@@ -148,63 +158,75 @@ public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        JOptionPane.showMessageDialog(this, "Librarian Deleted successfully");
+        try {
+            deleteLibrarian(this.idTextField.getText(), this.nameTextField.getText());
+        } catch (IOException ex) {
+            Logger.getLogger(AdminDeleteLibrarianForm.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }//GEN-LAST:event_deleteButtonActionPerformed
 
     private void nameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_nameTextFieldActionPerformed
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
-    private void readLibrarianData() throws IOException {
-        String filename = "admins.csv";
+    private void readLibrariansData() throws IOException {
+        String filename = "librarians.csv";
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
         String line;
-
-        try ( //parsing a CSV file into BufferedReader class constructor
-                BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
+        // open the file
+        try (BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
             while ((line = br.readLine()) != null) //returns a Boolean value
             {
                 String[] arr = line.split(",");
-                if (!arr[0].equals("Id")) {
-                    librarians.put(Integer.valueOf(arr[0].trim()), arr[1].trim());
-                }
+                librarians.add(arr); // reads all the lines into an arraylist;
             }
         }
     }
 
-    private void writeLibrarianData() throws IOException {
+    private void deleteLibrarian(String id, String name) throws IOException {
+        // handles if the user enters table header
+        if (id.equals("Id") || name.equals("Name")) {
+            // Shows error message
+            JOptionPane.showMessageDialog(this, "Librarian not found", "Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
         String filename = "librarians.csv";
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+
+        boolean deleted = false;
         // Opens the file
-        try {
-            try (FileWriter fileWriter = new FileWriter(absoluteFilePath, true)) {
-                String sep = ",";
-                // stores librarian data in a string
-                String librarian = "\n" + String.valueOf(++librariansCount) + sep + this.nameTextField.getText() + sep
-                        + String.valueOf(this.passwordTextField.getPassword()) + sep
-                        + this.emailTextField.getText() + sep + this.addressTextField.getText() + sep
-                        + this.cityTextField.getText() + sep + this.contactNoTextField.getText();
-                // append it to the file
-                fileWriter.append(librarian);
-                // close the file
-                fileWriter.close();
+        try (FileWriter file = new FileWriter(absoluteFilePath)) {
+            // loop over librarians
+            int index = 1;
+            for (String[] librarian : librarians) {
+                // save all except librarian to be deleted
+                if (!librarian[0].equals(id) || !librarian[1].equals(name)) {
+                    if (!librarian[0].equals("Id")) {
+                        librarian[0] = String.valueOf(index++);
+                    }
+                    file.append(String.join(",", librarian) + "\n");
+                } else {
+                    deleted = true;
+                }
+
             }
-        } catch (IOException ex) {
-            // handles errors
-            ex.printStackTrace(System.out);
-            System.exit(1);
         }
+
         // Resets the input fields
         this.nameTextField.setText("");
-        this.passwordTextField.setText("");
-        this.emailTextField.setText("");
-        this.addressTextField.setText("");
-        this.cityTextField.setText("");
-        this.contactNoTextField.setText("");
-        // Shows sucess message
-        JOptionPane.showMessageDialog(this, "Librarian Added Successfully");
+        this.idTextField.setText("");
+
+        // Show appropriate message
+        if (deleted == true) {
+            // Shows sucess message
+            JOptionPane.showMessageDialog(this, "Librarian Deleted Successfully");
+        } else {
+            // Shows error message
+            JOptionPane.showMessageDialog(this, "Librarian not found", "Error", JOptionPane.ERROR_MESSAGE);
+        }
+
     }
 
     /**
@@ -221,25 +243,31 @@ public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
                 if ("Nimbus".equals(info.getName())) {
                     javax.swing.UIManager.setLookAndFeel(info.getClassName());
                     break;
+
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
+
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminDeleteLibrarianForm.class
+                    .getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminDeleteLibrarianForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AdminDeleteLibrarianForm().setVisible(true);
         });
     }
 

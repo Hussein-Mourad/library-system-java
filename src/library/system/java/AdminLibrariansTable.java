@@ -15,10 +15,10 @@ import java.util.ArrayList;
  * @author hussein
  */
 public class AdminLibrariansTable extends javax.swing.JFrame {
+
     private String[] tableHeaders;
     private ArrayList<Object[]> tableData = new ArrayList<>();
     private Object[][] tableDataObj;
-
 
     /**
      * Creates new form LibrariansTable
@@ -31,7 +31,6 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
         }
         initComponents();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -111,11 +110,11 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
         String filename = "librarians.csv";
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-        String line = "";
+        String line;
 
         //parsing a CSV file into BufferedReader class constructor
         BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
-        while ((line = br.readLine()) != null)   //returns a Boolean value
+        while ((line = br.readLine()) != null) //returns a Boolean value
         {
             String[] arr = line.split(",");
             if (arr[0].equals("Id")) {
@@ -142,7 +141,6 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
          * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
-
 
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

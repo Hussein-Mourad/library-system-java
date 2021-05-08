@@ -250,7 +250,7 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
             try (FileWriter fileWriter = new FileWriter(absoluteFilePath, true)) {
                 String sep = ",";
                 // stores librarian data in a string
-                String librarian = "\n" + String.valueOf(++librariansCount) + sep + this.nameTextField.getText() + sep
+                String librarian = String.valueOf(++librariansCount) + sep + this.nameTextField.getText() + sep
                         + String.valueOf(this.passwordTextField.getPassword()) + sep
                         + this.emailTextField.getText() + sep + this.addressTextField.getText() + sep
                         + this.cityTextField.getText() + sep + this.contactNoTextField.getText();
