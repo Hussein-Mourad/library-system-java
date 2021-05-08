@@ -5,11 +5,6 @@
  */
 package library.system.java;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.HashMap;
 import javax.swing.*;
 
 /**
@@ -17,17 +12,12 @@ import javax.swing.*;
  */
 public class AdminLoginForm extends javax.swing.JFrame {
 
-    private HashMap<String, String> admins = new HashMap<>();
+    private Object[][] admins = FileOperations.readTableData("admins.csv");
 
     /**
      * Creates new form AdminLoginForm
      */
     public AdminLoginForm() {
-        try {
-            readCredentialData();
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-        }
         initComponents();
     }
 
@@ -171,7 +161,12 @@ public class AdminLoginForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isValidUser(String username, String password) {
-        return admins.containsKey(username) && admins.get(username).equals(password);
+        for (Object[] admin : admins) {
+            if (admin[1].equals(username) && admin[2].equals(password)) {
+                return true;
+            }
+        }
+        return false;
     }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
@@ -205,24 +200,6 @@ public class AdminLoginForm extends javax.swing.JFrame {
         }
 
     }//GEN-LAST:event_showPasswordCheckBoxActionPerformed
-
-    private void readCredentialData() throws IOException {
-        String filename = "admins.csv";
-        // Gets the absolute path of the file from current working directory
-        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-        String line;
-
-        try ( //parsing a CSV file into BufferedReader class constructor
-                BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
-            while ((line = br.readLine()) != null) //returns a Boolean value
-            {
-                String[] arr = line.split(",");
-                if (!arr[0].equals("Id")) {
-                    admins.put(arr[1].trim(), arr[2].trim());
-                }
-            }
-        }
-    }
 
     /**
      * @param args the command line arguments

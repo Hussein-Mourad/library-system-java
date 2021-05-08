@@ -21,7 +21,7 @@ import java.util.logging.Logger;
 public class FileOperations {
 
     public static void main(String[] args) {
-
+        System.out.println(deleteRecord("librarians.csv", "5", "kljklj"));
     }
 
     // Used to get the number of lines in a file which helps in generating id for each record
@@ -104,48 +104,49 @@ public class FileOperations {
         return null; // if failed return null
     }
 
-//    private void deleteLibrarian(String id, String name) throws IOException {
-//        // handles if the user enters table header
-//        if (id.equals("Id") || name.equals("Name")) {
-//            // Shows error message
-//            JOptionPane.showMessageDialog(this, "Librarian not found", "Error", JOptionPane.ERROR_MESSAGE);
-//            return;
-//        }
-//        String filename = "librarians.csv";
-//        // Gets the absolute path of the file from current working directory
-//        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-//
-//        boolean deleted = false;
-//        // Opens the file
-//        try (FileWriter file = new FileWriter(absoluteFilePath)) {
-//            // loop over librarians
-//            int index = 1;
-//            for (String[] librarian : librarians) {
-//                // save all except librarian to be deleted
-//                if (!librarian[0].equals(id) || !librarian[1].equals(name)) {
-//                    if (!librarian[0].equals("Id")) {
-//                        librarian[0] = String.valueOf(index++);
-//                    }
-//                    file.append(String.join(",", librarian) + "\n");
-//                } else {
-//                    deleted = true;
-//                }
-//
-//            }
-//        }
-//
-//        // Resets the input fields
-//        this.nameTextField.setText("");
-//        this.idTextField.setText("");
-//
-//        // Show appropriate message
-//        if (deleted == true) {
-//            // Shows sucess message
-//            JOptionPane.showMessageDialog(this, "Librarian Deleted Successfully");
-//        } else {
-//            // Shows error message
-//            JOptionPane.showMessageDialog(this, "Librarian not found", "Error", JOptionPane.ERROR_MESSAGE);
-//        }
-//
-//    }
+    // deletes a record by id and name
+    public static boolean deleteRecord(String filename, String id, String name) {
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        boolean deleted = false;
+        ArrayList<String[]> data = new ArrayList<>();
+        String line;
+
+        // handles if the user enters table header
+        if (id.equals("Id") || name.equals("Name")) {
+            return false;
+        }
+
+        // open the file to read all data
+        try (BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
+            while ((line = br.readLine()) != null) //returns a Boolean value
+            {
+                String[] arr = line.split(",");
+                data.add(arr); // reads all the lines into an arraylist;
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+        // Opens the file to write
+        try (FileWriter file = new FileWriter(absoluteFilePath)) {
+            // loop over librarians
+            int index = 1;
+            for (String[] record : data) {
+                // save all except librarian to be deleted
+                if (!record[0].equals(id) || !record[1].equals(name)) {
+                    if (!record[0].equals("Id")) {
+                        record[0] = String.valueOf(index++);
+                    }
+                    file.append(String.join(",", record) + "\n");
+                } else {
+                    deleted = true;
+                }
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return deleted;
+    }
+
 }

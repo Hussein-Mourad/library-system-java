@@ -5,7 +5,6 @@
  */
 package library.system.java;
 
-import javax.swing.table.DefaultTableModel;
 import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileReader;
@@ -17,6 +16,7 @@ import java.util.ArrayList;
  * @author hussein
  */
 public class LibrarianBooksTable extends javax.swing.JFrame {
+
     private String[] TableH;
     private ArrayList<Object[]> booksdata = new ArrayList<>();
     private Object[][] TableO;
@@ -27,12 +27,11 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
     public LibrarianBooksTable() {
         try {
             databooks();
-        } catch ( IOException e) {
+        } catch (IOException e) {
             e.printStackTrace();
         }
         initComponents();
     }
-
 
     /**
      * This method is called from within the constructor to initialize the form.
@@ -60,7 +59,17 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
             }
         });
 
-        booksTable.setModel(new javax.swing.table.DefaultTableModel(TableO,TableH) {
+        booksTable.setModel(new javax.swing.table.DefaultTableModel(
+            new Object [][] {
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null},
+                {null, null, null, null, null, null, null, null}
+            },
+            new String [] {
+                "id", "callno", "name", "author", "publisher", "quantity", "issued", "added_date"
+            }
+        ) {
             boolean[] canEdit = new boolean [] {
                 true, false, true, true, true, true, true, true
             };
@@ -113,6 +122,7 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
         this.setVisible(false);
         new LibrarianSection().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
+
     private void databooks() throws IOException {
         String filename = "books.csv";
         // Gets the absolute path of the file from current working directory
@@ -121,7 +131,7 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
 
         //parsing a CSV file into BufferedReader class constructor
         BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
-        while ((line = br.readLine()) != null)   //returns a Boolean value
+        while ((line = br.readLine()) != null) //returns a Boolean value
         {
             String[] arr = line.split(",");
             if (arr[0].equals("Id")) {
@@ -146,7 +156,7 @@ public class LibrarianBooksTable extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {
