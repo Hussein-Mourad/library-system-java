@@ -21,7 +21,6 @@ import java.util.logging.Logger;
 public class Helpers {
 
     public static void main(String[] args) {
-        System.out.println(deleteRecord("librarians.csv", "5", "kljklj"));
     }
 
     public static String capitalizeFirstLetter(String str) {
@@ -113,7 +112,8 @@ public class Helpers {
     }
 
     // deletes a record by id and name
-    public static boolean deleteRecord(String filename, String id, String name) {
+    public static boolean deleteRecord(String filename, int indexCol1, String Col1, int indexCol2, String Col2) {
+
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
         boolean deleted = false;
@@ -121,7 +121,7 @@ public class Helpers {
         String line;
 
         // handles if the user enters table header
-        if (id.equals("Id") || name.equals("Name")) {
+        if (Col1.equals("Id") || Col2.equals("Id")) {
             return false;
         }
 
@@ -142,7 +142,7 @@ public class Helpers {
             int index = 1;
             for (String[] record : data) {
                 // save all except librarian to be deleted
-                if (!record[0].equals(id) || !record[1].equals(name)) {
+                if (!record[indexCol1].equals(Col1) || !record[indexCol2].equals(Col2)) {
                     if (!record[0].equals("Id")) {
                         record[0] = String.valueOf(index++);
                     }
@@ -157,4 +157,20 @@ public class Helpers {
         return deleted;
     }
 
+    public static boolean isNumeric(String string) {
+        int intValue;
+
+        if (string == null || string.equals("")) {
+            System.out.println("String cannot be parsed, it is null or empty.");
+            return false;
+        }
+
+        try {
+            intValue = Integer.parseInt(string);
+            return true;
+        } catch (NumberFormatException e) {
+            System.out.println("Input String cannot be parsed to Integer.");
+        }
+        return false;
+    }
 }

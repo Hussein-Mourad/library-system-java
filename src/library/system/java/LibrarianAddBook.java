@@ -5,7 +5,8 @@
  */
 package library.system.java;
 
-import java.util.regex.Pattern;
+import java.text.SimpleDateFormat;
+import java.util.Date;
 import javax.swing.JOptionPane;
 
 /**
@@ -14,13 +15,14 @@ import javax.swing.JOptionPane;
  */
 public class LibrarianAddBook extends javax.swing.JFrame {
 
+    private String filename = "books.csv";
     private int fileCount;
 
     /**
      * Creates new form AddingBooks
      */
     public LibrarianAddBook() {
-        fileCount = Helpers.getFileCount("librarians.csv");
+        fileCount = Helpers.getFileCount(filename);
         initComponents();
     }
 
@@ -199,45 +201,38 @@ public class LibrarianAddBook extends javax.swing.JFrame {
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // input validation
         if (String.valueOf(this.callNoTextField.getText()).isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a password");
+            JOptionPane.showMessageDialog(this, "Please enter call No.");
         } else if (this.nameTextField.getText().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a name");
-        } else if (this.emailTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter an email");
-        } else if (this.addressTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter an address");
-        } else if (this.cityTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a city");
-        } else if (this.contactNoTextField.getText().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter a contact number");
-        } else if (!Pattern.compile("\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b", Pattern.CASE_INSENSITIVE).matcher(this.emailTextField.getText()).matches()) {
-            //regex sources: https://regexr.com/2ri2c, https://www.w3schools.com/java/java_regex.asp
-            JOptionPane.showMessageDialog(this, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.compile("[a-zA-z]+", Pattern.CASE_INSENSITIVE).matcher(this.cityTextField.getText()).matches()) {
-            // Matches any word
-            JOptionPane.showMessageDialog(this, "Invalid city name", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.compile("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s0-9]*$").matcher(this.contactNoTextField.getText()).matches()) {
-            // regex source: https://regexr.com/3c53v, https://www.w3schools.com/java/java_regex.asp
-            JOptionPane.showMessageDialog(this, "Invalid contact number", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (this.authorTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter an author");
+        } else if (this.publisherTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a publisher");
+        } else if (this.quantityTextField.getText().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a quantity");
+        } else if (!Helpers.isNumeric(this.quantityTextField.getText())) {
+            JOptionPane.showMessageDialog(this, "Invalid quantity", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String comma = ",";
+            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             // stores librarian data in a string separated by comma
-            String line = String.valueOf(++fileCount) + comma + this.nameTextField.getText() + comma
-                    + String.valueOf(this.passwordTextField.getPassword()) + comma
-                    + this.emailTextField.getText() + comma + this.addressTextField.getText() + comma
-                    + this.cityTextField.getText() + comma + this.contactNoTextField.getText();
+            String line = String.valueOf(++fileCount) + comma + this.callNoTextField.getText() + comma
+                    + String.valueOf(this.nameTextField.getText()) + comma
+                    + this.authorTextField.getText() + comma + this.publisherTextField.getText() + comma
+                    + this.quantityTextField.getText() + comma + "0" + comma + formatter.format(new Date());
 
             Helpers.appendLineToFile(filename, line);
 
             // Resets the input fields
+            this.callNoTextField.setText("");
             this.nameTextField.setText("");
-            this.passwordTextField.setText("");
-            this.emailTextField.setText("");
-            this.addressTextField.setText("");
-            this.cityTextField.setText("");
-            this.contactNoTextField.setText("");
+            this.authorTextField.setText("");
+            this.publisherTextField.setText("");
+            this.quantityTextField.setText("");
+
             // Shows sucess message
             JOptionPane.showMessageDialog(this, "Books Added Successfully!");
+        }
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void publisherTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_publisherTextFieldActionPerformed
@@ -277,10 +272,8 @@ public class LibrarianAddBook extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LibrarianAddBook().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LibrarianAddBook().setVisible(true);
         });
     }
 

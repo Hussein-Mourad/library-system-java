@@ -21,7 +21,7 @@ public class Table extends javax.swing.JFrame {
      * @param type Takes the type of form
      */
     public Table(String type) {
-       this.type = Helpers.capitalizeFirstLetter(type);
+        this.type = Helpers.capitalizeFirstLetter(type);
         this.filename = Helpers.addFileExtenstion(type + "s", "csv");
         tableData = Helpers.readTableData(this.filename);
         tableHeaders = Helpers.readTableHeaders(this.filename);
@@ -99,8 +99,11 @@ public class Table extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        this.setVisible(false);
-        new AdminSection().setVisible(true);
+        if (this.type == "Admin") {
+            this.setVisible(false);
+            new AdminSection().setVisible(true);
+        }
+
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**

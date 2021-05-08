@@ -149,7 +149,7 @@ public class LibrarianSection extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton1ActionPerformed
 
     private void jButton6ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton6ActionPerformed
-         new HomePage().setVisible(true);
+        new HomePage().setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton6ActionPerformed
 
@@ -163,7 +163,7 @@ public class LibrarianSection extends javax.swing.JFrame {
         this.setVisible(false);    }//GEN-LAST:event_jButton5ActionPerformed
 
     private void jButton4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton4ActionPerformed
-          new LibrarianIssuedBooks().setVisible(true);
+        new Table("issuedbook").setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_jButton4ActionPerformed
 
@@ -179,7 +179,7 @@ public class LibrarianSection extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

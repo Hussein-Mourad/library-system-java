@@ -30,7 +30,7 @@ public class StudentSection extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         addLibrarianButton = new javax.swing.JButton();
-        viewLibrarianButton = new javax.swing.JButton();
+        viewProfileButton = new javax.swing.JButton();
         deleteLibrarianButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
@@ -46,10 +46,10 @@ public class StudentSection extends javax.swing.JFrame {
             }
         });
 
-        viewLibrarianButton.setText("Return a book");
-        viewLibrarianButton.addActionListener(new java.awt.event.ActionListener() {
+        viewProfileButton.setText("View Profile");
+        viewProfileButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewLibrarianButtonActionPerformed(evt);
+                viewProfileButtonActionPerformed(evt);
             }
         });
 
@@ -76,7 +76,7 @@ public class StudentSection extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(title)
                     .addComponent(addLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewProfileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(deleteLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 130, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120))
@@ -89,7 +89,7 @@ public class StudentSection extends javax.swing.JFrame {
                 .addGap(31, 31, 31)
                 .addComponent(addLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewProfileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(deleteLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
@@ -122,10 +122,10 @@ public class StudentSection extends javax.swing.JFrame {
         new AdminAddForm("librarian").setVisible(true);
     }//GEN-LAST:event_addLibrarianButtonActionPerformed
 
-    private void viewLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewLibrarianButtonActionPerformed
+    private void viewProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProfileButtonActionPerformed
         this.setVisible(false);
         new Table("librarian").setVisible(true);
-    }//GEN-LAST:event_viewLibrarianButtonActionPerformed
+    }//GEN-LAST:event_viewProfileButtonActionPerformed
 
     private void deleteLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLibrarianButtonActionPerformed
         this.setVisible(false);
@@ -178,6 +178,6 @@ public class StudentSection extends javax.swing.JFrame {
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel title;
-    private javax.swing.JButton viewLibrarianButton;
+    private javax.swing.JButton viewProfileButton;
     // End of variables declaration//GEN-END:variables
 }
