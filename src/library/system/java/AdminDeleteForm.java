@@ -22,8 +22,8 @@ public class AdminDeleteForm extends javax.swing.JFrame {
      * @param type The type to be deleted
      */
     public AdminDeleteForm(String type) {
-        this.type = type.substring(0, 1).toUpperCase() + type.substring(1);
-        this.filename = type + "s.csv";
+        this.type = Helpers.capitalizeFirstLetter(type);
+        this.filename = Helpers.addFileExtenstion(type + "s", "csv");
         initComponents();
     }
 
@@ -149,7 +149,7 @@ public class AdminDeleteForm extends javax.swing.JFrame {
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
 
-        boolean deleted = FileOperations.deleteRecord(filename, this.idTextField.getText(), this.nameTextField.getText());
+        boolean deleted = Helpers.deleteRecord(filename, this.idTextField.getText(), this.nameTextField.getText());
 
         // Show appropriate message
         if (deleted == true) {

@@ -18,10 +18,18 @@ import java.util.logging.Logger;
  *
  * @author hussein
  */
-public class FileOperations {
+public class Helpers {
 
     public static void main(String[] args) {
         System.out.println(deleteRecord("librarians.csv", "5", "kljklj"));
+    }
+
+    public static String capitalizeFirstLetter(String str) {
+        return str.substring(0, 1).toUpperCase() + str.substring(1);
+    }
+
+    public static String addFileExtenstion(String filename, String extension) {
+        return filename + "." + extension;
     }
 
     // Used to get the number of lines in a file which helps in generating id for each record
@@ -39,7 +47,7 @@ public class FileOperations {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
         return count;
     }
@@ -56,7 +64,7 @@ public class FileOperations {
             fileWriter.close();
 
         } catch (IOException ex) {
-            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
     }
 
@@ -81,7 +89,7 @@ public class FileOperations {
                 tableDataObj[i] = row;
             }
         } catch (IOException ex) {
-            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
         return tableDataObj;
     }
@@ -99,7 +107,7 @@ public class FileOperations {
                 return tableHeaders; // returns first line
             }
         } catch (IOException ex) {
-            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
         return null; // if failed return null
     }
@@ -125,7 +133,7 @@ public class FileOperations {
                 data.add(arr); // reads all the lines into an arraylist;
             }
         } catch (IOException ex) {
-            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
 
         // Opens the file to write
@@ -144,7 +152,7 @@ public class FileOperations {
                 }
             }
         } catch (IOException ex) {
-            Logger.getLogger(FileOperations.class.getName()).log(Level.SEVERE, null, ex);
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
         }
         return deleted;
     }

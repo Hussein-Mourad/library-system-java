@@ -124,7 +124,7 @@ public class StudentSection extends javax.swing.JFrame {
 
     private void viewLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewLibrarianButtonActionPerformed
         this.setVisible(false);
-        new AdminTable("librarian").setVisible(true);
+        new Table("librarian").setVisible(true);
     }//GEN-LAST:event_viewLibrarianButtonActionPerformed
 
     private void deleteLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLibrarianButtonActionPerformed

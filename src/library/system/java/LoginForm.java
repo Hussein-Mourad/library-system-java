@@ -8,7 +8,7 @@ package library.system.java;
 import javax.swing.*;
 
 /**
- * @author hussein
+ * @author mohamed abdelwahab
  */
 public class LoginForm extends javax.swing.JFrame {
 
@@ -22,9 +22,9 @@ public class LoginForm extends javax.swing.JFrame {
      * @param type Type of the form
      */
     public LoginForm(String type) {
-        this.type = type.substring(0, 1).toUpperCase() + type.substring(1);
-        this.filename = type + "s.csv";
-        users = FileOperations.readTableData(this.filename);
+       this.type = Helpers.capitalizeFirstLetter(type);
+        this.filename = Helpers.addFileExtenstion(type + "s", "csv");
+        users = Helpers.readTableData(this.filename);
         initComponents();
     }
 

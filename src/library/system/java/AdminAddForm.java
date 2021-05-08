@@ -24,9 +24,9 @@ public class AdminAddForm extends javax.swing.JFrame {
      * @param type Takes the title of this form
      */
     public AdminAddForm(String type) {
-        this.type = type.substring(0, 1).toUpperCase() + type.substring(1);
-        this.filename = type + "s.csv";
-        fileCount = FileOperations.getFileCount(filename);
+        this.type = Helpers.capitalizeFirstLetter(type);
+        this.filename = Helpers.addFileExtenstion(type + "s", "csv");
+        fileCount = Helpers.getFileCount(filename);
         initComponents();
     }
 
@@ -223,7 +223,7 @@ public class AdminAddForm extends javax.swing.JFrame {
                     + this.emailTextField.getText() + comma + this.addressTextField.getText() + comma
                     + this.cityTextField.getText() + comma + this.contactNoTextField.getText();
 
-            FileOperations.appendLineToFile(filename, line);
+            Helpers.appendLineToFile(filename, line);
 
             // Resets the input fields
             this.nameTextField.setText("");

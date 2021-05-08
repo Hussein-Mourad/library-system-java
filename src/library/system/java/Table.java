@@ -8,7 +8,7 @@ package library.system.java;
 /**
  * @author hussein
  */
-public class AdminTable extends javax.swing.JFrame {
+public class Table extends javax.swing.JFrame {
 
     String type;
     String filename;
@@ -20,11 +20,11 @@ public class AdminTable extends javax.swing.JFrame {
      *
      * @param type Takes the type of form
      */
-    public AdminTable(String type) {
-        this.type = type.substring(0, 1).toUpperCase() + type.substring(1);
-        this.filename = type + "s.csv";
-        tableData = FileOperations.readTableData(this.filename);
-        tableHeaders = FileOperations.readTableHeaders(this.filename);
+    public Table(String type) {
+       this.type = Helpers.capitalizeFirstLetter(type);
+        this.filename = Helpers.addFileExtenstion(type + "s", "csv");
+        tableData = Helpers.readTableData(this.filename);
+        tableHeaders = Helpers.readTableHeaders(this.filename);
         initComponents();
     }
 
@@ -121,8 +121,16 @@ public class AdminTable extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(Table.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
         //</editor-fold>
@@ -137,7 +145,7 @@ public class AdminTable extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AdminTable("librairan").setVisible(true);
+            new Table("librairan").setVisible(true);
         });
     }
 
