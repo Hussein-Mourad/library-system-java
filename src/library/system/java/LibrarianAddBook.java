@@ -7,17 +7,16 @@ package library.system.java;
 
 import javax.swing.*;
 import java.awt.event.ActionEvent;
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.IOException;
-import java.util.ArrayList;
+import java.io.*;
 import java.util.regex.Pattern;
 
 /**
  * @author mohamed abdelwahab
  */
 public class LibrarianAddBook extends javax.swing.JFrame {
+
+    private int bookCount;
+
 
     // Variables declaration - do not modify
     private javax.swing.JButton jButton1;
@@ -39,15 +38,11 @@ public class LibrarianAddBook extends javax.swing.JFrame {
     /**
      * Creates new form AddingBooks
      */
-    private String[] TableH;
-    private ArrayList<Object[]> booksdata = new ArrayList<>();
-    private Object[][] TableO;
-
     public LibrarianAddBook() {
         try {
-            databooks();
+            getbookCount();
         } catch ( IOException e ) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
         initComponents();
     }
@@ -285,30 +280,54 @@ public class LibrarianAddBook extends javax.swing.JFrame {
 
     }
 
-    private void databooks() throws IOException {
+    private void getbookCount() throws IOException {
         String filename = "books.csv";
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-        String line = "";
-
-        //parsing a CSV file into BufferedReader class constructor
-        BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
-        while ((line = br.readLine()) != null)   //returns a Boolean value
-        {
-            String[] arr = line.split(",");
-            if (arr[0].equals("Id")) {
-                TableH = new String[arr.length];
-                TableH = arr;
-            } else {
-                booksdata.add(arr);
+        String line;
+        // Opens the file
+        try (BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
+            while ((line = br.readLine()) != null) //reads the content of the file
+            {
+                if (!line.startsWith("Id")) {
+                    bookCount++; // counts the librarians
+                }
             }
         }
-        TableO = new String[booksdata.size()][];
-        for (int i = 0; i < booksdata.size(); i++) {
-            Object[] row = booksdata.get(i);
-            TableO[i] = row;
-        }
+    }
 
+    private void savebook() {
+        String filename = "books.csv";
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        // Opens the file
+        try {
+            try (FileWriter fileWriter = new FileWriter(absoluteFilePath, true)) {
+                String sep = ",";
+                // stores librarian data in a string
+                String librarian = "\n" + String.valueOf(++bookCount) + sep + this.jTextField1.getText() + sep
+                        + String.valueOf(this.jTextField2.getText()) + sep
+                        + this.jTextField3.getText() + sep + this.jTextField4.getText() + sep
+                        + this.jTextField5.getText();
+                // append it to the file
+                fileWriter.append(librarian);
+                // close the file
+                fileWriter.close();
+            }
+        } catch ( IOException ex ) {
+            // handles errors
+            ex.printStackTrace(System.out);
+            System.exit(1);
+        }
+        // Resets the input fields
+        this.jTextField1.setText("");
+        this.jTextField2.setText("");
+        this.jTextField3.setText("");
+        this.jTextField4.setText("");
+        this.jTextField5.setText("");
+
+        // Shows sucess message
+        JOptionPane.showMessageDialog(this, "book added successfully");
     }
 
     private void jTextField4ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField4ActionPerformed
