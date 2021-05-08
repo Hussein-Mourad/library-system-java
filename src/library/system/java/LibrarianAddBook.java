@@ -200,26 +200,26 @@ public class LibrarianAddBook extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // input validation
-        if (String.valueOf(this.callNoTextField.getText()).isEmpty()) {
+        if (String.valueOf(this.callNoTextField.getText()).trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter call No.");
-        } else if (this.nameTextField.getText().isEmpty()) {
+        } else if (this.nameTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a name");
-        } else if (this.authorTextField.getText().isEmpty()) {
+        } else if (this.authorTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an author");
-        } else if (this.publisherTextField.getText().isEmpty()) {
+        } else if (this.publisherTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a publisher");
-        } else if (this.quantityTextField.getText().isEmpty()) {
+        } else if (this.quantityTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a quantity");
-        } else if (!Helpers.isNumeric(this.quantityTextField.getText())) {
+        } else if (!Helpers.isNumeric(this.quantityTextField.getText().trim())) {
             JOptionPane.showMessageDialog(this, "Invalid quantity", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String comma = ",";
             SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             // stores librarian data in a string separated by comma
-            String line = String.valueOf(++fileCount) + comma + this.callNoTextField.getText() + comma
-                    + String.valueOf(this.nameTextField.getText()) + comma
-                    + this.authorTextField.getText() + comma + this.publisherTextField.getText() + comma
-                    + this.quantityTextField.getText() + comma + "0" + comma + formatter.format(new Date());
+            String line = String.valueOf(++fileCount) + comma + this.callNoTextField.getText().trim() + comma
+                    + String.valueOf(this.nameTextField.getText().trim()) + comma
+                    + this.authorTextField.getText().trim() + comma + this.publisherTextField.getText().trim() + comma
+                    + this.quantityTextField.getText().trim() + comma + "0" + comma + formatter.format(new Date());
 
             Helpers.appendLineToFile(filename, line);
 

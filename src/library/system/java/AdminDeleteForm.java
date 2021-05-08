@@ -148,8 +148,7 @@ public class AdminDeleteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-
-        boolean deleted = Helpers.deleteRecord(filename, 0, this.idTextField.getText(), 1, this.nameTextField.getText());
+        boolean deleted = Helpers.deleteRecord(filename, 0, this.idTextField.getText().trim(), 1, this.nameTextField.getText().trim());
 
         // Show appropriate message
         if (deleted == true) {

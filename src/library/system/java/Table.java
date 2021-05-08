@@ -10,7 +10,6 @@ package library.system.java;
  */
 public class Table extends javax.swing.JFrame {
 
-    String type;
     String filename;
     private Object[][] tableData;
     private String[] tableHeaders;
@@ -18,11 +17,10 @@ public class Table extends javax.swing.JFrame {
     /**
      * Creates new form LibrariansTable
      *
-     * @param type Takes the type of form
+     * @param filename
      */
-    public Table(String type) {
-        this.type = Helpers.capitalizeFirstLetter(type);
-        this.filename = Helpers.addFileExtenstion(type + "s", "csv");
+    public Table(String filename) {
+        this.filename = filename;
         tableData = Helpers.readTableData(this.filename);
         tableHeaders = Helpers.readTableHeaders(this.filename);
         initComponents();
@@ -99,7 +97,7 @@ public class Table extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        if (this.type.equals("Admin")) {
+        if (this.filename.equals("admins.csv")) {
             this.setVisible(false);
             new AdminSection().setVisible(true);
         }
@@ -148,7 +146,7 @@ public class Table extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Table("librairan").setVisible(true);
+            new Table("librairan.csv").setVisible(true);
         });
     }
 

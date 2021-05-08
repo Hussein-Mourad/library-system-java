@@ -189,13 +189,13 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        if (this.nameTextField.getText().isEmpty() && String.valueOf(this.passwordTextField.getPassword()).isEmpty()) {
+        if (this.nameTextField.getText().trim().isEmpty() && String.valueOf(this.passwordTextField.getPassword()).trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter username and password");
-        } else if (this.nameTextField.getText().isEmpty()) {
+        } else if (this.nameTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter username");
-        } else if (String.valueOf(this.passwordTextField.getPassword()).isEmpty()) {
+        } else if (String.valueOf(this.passwordTextField.getPassword()).trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter password");
-        } else if (isValidUser(this.nameTextField.getText(), String.valueOf(this.passwordTextField.getPassword()))) {
+        } else if (isValidUser(this.nameTextField.getText().trim(), String.valueOf(this.passwordTextField.getPassword()).trim())) {
             this.setVisible(false);
 
             if (this.type.equals("Admin")) {

@@ -194,34 +194,34 @@ public class AdminAddForm extends javax.swing.JFrame {
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
         // input validation
-        if (this.nameTextField.getText().isEmpty()) {
+        if (this.nameTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a name");
-        } else if (String.valueOf(this.passwordTextField.getPassword()).isEmpty()) {
+        } else if (String.valueOf(this.passwordTextField.getPassword()).trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a password");
-        } else if (this.emailTextField.getText().isEmpty()) {
+        } else if (this.emailTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an email");
-        } else if (this.addressTextField.getText().isEmpty()) {
+        } else if (this.addressTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an address");
-        } else if (this.cityTextField.getText().isEmpty()) {
+        } else if (this.cityTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a city");
-        } else if (this.contactNoTextField.getText().isEmpty()) {
+        } else if (this.contactNoTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a contact number");
-        } else if (!Pattern.compile("\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b", Pattern.CASE_INSENSITIVE).matcher(this.emailTextField.getText()).matches()) {
+        } else if (!Pattern.compile("\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b", Pattern.CASE_INSENSITIVE).matcher(this.emailTextField.getText().trim()).matches()) {
             //regex sources: https://regexr.com/2ri2c, https://www.w3schools.com/java/java_regex.asp
             JOptionPane.showMessageDialog(this, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.compile("[a-zA-z]+", Pattern.CASE_INSENSITIVE).matcher(this.cityTextField.getText()).matches()) {
+        } else if (!Pattern.compile("[a-zA-z]+", Pattern.CASE_INSENSITIVE).matcher(this.cityTextField.getText().trim()).matches()) {
             // Matches any word
             JOptionPane.showMessageDialog(this, "Invalid city name", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.compile("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s0-9]*$").matcher(this.contactNoTextField.getText()).matches()) {
+        } else if (!Pattern.compile("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s0-9]*$").matcher(this.contactNoTextField.getText().trim()).matches()) {
             // regex source: https://regexr.com/3c53v, https://www.w3schools.com/java/java_regex.asp
             JOptionPane.showMessageDialog(this, "Invalid contact number", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             String comma = ",";
             // stores librarian data in a string separated by comma
-            String line = String.valueOf(++fileCount) + comma + this.nameTextField.getText() + comma
+            String line = String.valueOf(++fileCount) + comma + this.nameTextField.getText().trim() + comma
                     + String.valueOf(this.passwordTextField.getPassword()) + comma
-                    + this.emailTextField.getText() + comma + this.addressTextField.getText() + comma
-                    + this.cityTextField.getText() + comma + this.contactNoTextField.getText();
+                    + this.emailTextField.getText().trim() + comma + this.addressTextField.getText().trim() + comma
+                    + this.cityTextField.getText().trim() + comma + this.contactNoTextField.getText().trim();
 
             Helpers.appendLineToFile(filename, line);
 

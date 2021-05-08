@@ -5,6 +5,11 @@
  */
 package library.system.java;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +17,9 @@ import javax.swing.JOptionPane;
  * @author hussein
  */
 public class LibrarianIssueBookForm extends javax.swing.JFrame {
+
+    private Object[][] books = Helpers.readTableData("books.csv");
+    private Object[][] students = Helpers.readTableData("students.csv");
 
     /**
      * Creates new form IssueBookForm
@@ -30,87 +38,148 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
     private void initComponents() {
 
         jPanel1 = new javax.swing.JPanel();
-        jButton1 = new javax.swing.JButton();
+        backButton = new javax.swing.JButton();
+        title = new javax.swing.JLabel();
+        callNoLabel = new javax.swing.JLabel();
+        callNoTextField = new javax.swing.JTextField();
+        issueButton = new javax.swing.JButton();
+        studentIdLabel = new javax.swing.JLabel();
+        studentIdTextField = new javax.swing.JTextField();
+        bookNameLabel = new javax.swing.JLabel();
         jLabel1 = new javax.swing.JLabel();
+        contactTextField = new javax.swing.JTextField();
+        bookNameTextField = new javax.swing.JTextField();
+        returnDateLabel = new javax.swing.JLabel();
+        returnDateTextField = new javax.swing.JTextField();
         jLabel2 = new javax.swing.JLabel();
-        jTextField1 = new javax.swing.JTextField();
-        jButton2 = new javax.swing.JButton();
-        jLabel3 = new javax.swing.JLabel();
-        jTextField2 = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
-        setMinimumSize(new java.awt.Dimension(400, 250));
+        setMinimumSize(new java.awt.Dimension(500, 350));
         setResizable(false);
+        setSize(new java.awt.Dimension(500, 350));
 
-        jButton1.setText("Back");
-        jButton1.addActionListener(new java.awt.event.ActionListener() {
+        backButton.setText("Back");
+        backButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton1ActionPerformed(evt);
+                backButtonActionPerformed(evt);
             }
         });
 
-        jLabel1.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        jLabel1.setText("Issue a Book");
+        title.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
+        title.setText("Issue a Book");
 
-        jLabel2.setText("Book Callno:");
+        callNoLabel.setText("Book Callno:");
 
-        jButton2.setText("Issue");
-        jButton2.addActionListener(new java.awt.event.ActionListener() {
+        callNoTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                jButton2ActionPerformed(evt);
+                callNoTextFieldActionPerformed(evt);
             }
         });
 
-        jLabel3.setText("Student Id:");
+        issueButton.setText("Issue");
+        issueButton.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                issueButtonActionPerformed(evt);
+            }
+        });
+
+        studentIdLabel.setText("Student Id:");
+
+        studentIdTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                studentIdTextFieldActionPerformed(evt);
+            }
+        });
+
+        bookNameLabel.setText("Book Name");
+
+        jLabel1.setText("Contact No.");
+
+        contactTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                contactTextFieldActionPerformed(evt);
+            }
+        });
+
+        bookNameTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                bookNameTextFieldActionPerformed(evt);
+            }
+        });
+
+        returnDateLabel.setText("Return Data");
+
+        returnDateTextField.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                returnDateTextFieldActionPerformed(evt);
+            }
+        });
+
+        jLabel2.setText("(yyyy-mm-dd)");
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                .addGap(185, 185, 185)
+                .addComponent(title)
+                .addContainerGap(202, Short.MAX_VALUE))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGap(32, 32, 32)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(jLabel2)
+                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                        .addComponent(callNoLabel)
+                        .addComponent(studentIdLabel)
+                        .addComponent(jLabel1)
+                        .addComponent(bookNameLabel)
+                        .addComponent(returnDateLabel)
+                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGap(18, 18, 18)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addComponent(studentIdTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(contactTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(bookNameTextField, javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(returnDateTextField, javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addGap(133, 133, 133)
-                                .addComponent(jLabel1))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addContainerGap()
-                                .addComponent(jLabel3)))
-                        .addGap(0, 142, Short.MAX_VALUE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addContainerGap()
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jLabel2)
-                                .addGap(18, 18, 18)
-                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                                    .addComponent(jTextField2)
-                                    .addComponent(jTextField1)))
-                            .addGroup(jPanel1Layout.createSequentialGroup()
-                                .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                                .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))))
-                .addContainerGap())
+                        .addGap(0, 0, Short.MAX_VALUE)
+                        .addComponent(issueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(callNoTextField))
+                .addGap(31, 31, 31))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jLabel1)
-                .addGap(30, 30, 30)
+                .addComponent(title)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel2)
-                    .addComponent(jTextField1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(callNoLabel)
+                    .addComponent(callNoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jLabel3)
-                    .addComponent(jTextField2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 56, Short.MAX_VALUE)
+                    .addComponent(studentIdLabel)
+                    .addComponent(studentIdTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(12, 12, 12)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(jButton1, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(jButton2, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addComponent(contactTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel1))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(bookNameTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(bookNameLabel))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(returnDateLabel)
+                    .addComponent(returnDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(36, 36, 36)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(issueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addContainerGap())
         );
 
@@ -120,28 +189,103 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void jButton2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton2ActionPerformed
-        JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
-    }//GEN-LAST:event_jButton2ActionPerformed
+    private boolean isValidBook() {
+        for (Object[] student : students) {
+            String id = student[0].toString().trim();
+            String contactNo = student[7].toString().trim();
+            if (!this.studentIdTextField.getText().trim().equals(id)) {
+                JOptionPane.showMessageDialog(this, "Invalid Student Id", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else if (!this.contactTextField.getText().trim().equals(contactNo)) {
+                JOptionPane.showMessageDialog(this, "Invalid Student Id", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else {
+                try {
+                    Date todayDate = new Date();
+                    Date returnDate = new SimpleDateFormat("yyyy-MM-dd").parse(this.returnDateTextField.getText().trim());
+                    if (!todayDate.before(returnDate)) {
+                        JOptionPane.showMessageDialog(this, "Invalid date", "Error", JOptionPane.ERROR_MESSAGE);
+                        return false;
+                    }
+                } catch (ParseException ex) {
+                    JOptionPane.showMessageDialog(this, "Invalid date format", "Error", JOptionPane.ERROR_MESSAGE);
+                    Logger.getLogger(LibrarianIssueBookForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+        }
 
-    private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
+        for (Object[] book : books) {
+            String callNo = book[1].toString().trim();
+            String bookName = book[2].toString().trim();
+            String bookQuantity = book[5].toString().trim();
+            String issuedQuantity = book[6].toString().trim();
+            if (!this.callNoTextField.getText().trim().equals(callNo)) {
+                JOptionPane.showMessageDialog(this, "Invalid call no", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else if (!this.bookNameTextField.getText().trim().equals(bookName)) {
+                JOptionPane.showMessageDialog(this, "Invalid book name", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            } else if (issuedQuantity.equals(bookQuantity)) {
+                JOptionPane.showMessageDialog(this, "All book copies are issued", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
+    private void issueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueButtonActionPerformed
+        if (this.callNoTextField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter book call no");
+        } else if (this.studentIdTextField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter student id");
+        } else if (this.contactTextField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter contact number");
+        } else if (this.bookNameTextField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter book name");
+        } else if (this.returnDateTextField.getText().trim().isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter book call no");
+        } else if (isValidBook()) {
+            Helpers.deleteRecord("books.csv", ERROR, Col1, ERROR, Col2)
+            JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
+        }
+    }//GEN-LAST:event_issueButtonActionPerformed
+
+    private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
         this.setVisible(false);
         new LibrarianSection().setVisible(true);
-    }//GEN-LAST:event_jButton1ActionPerformed
+    }//GEN-LAST:event_backButtonActionPerformed
+
+    private void bookNameTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_bookNameTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_bookNameTextFieldActionPerformed
+
+    private void contactTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_contactTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_contactTextFieldActionPerformed
+
+    private void returnDateTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnDateTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_returnDateTextFieldActionPerformed
+
+    private void callNoTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_callNoTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_callNoTextFieldActionPerformed
+
+    private void studentIdTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_studentIdTextFieldActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_studentIdTextFieldActionPerformed
 
     /**
      * @param args the command line arguments
@@ -172,21 +316,26 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LibrarianIssueBookForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LibrarianIssueBookForm().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton jButton1;
-    private javax.swing.JButton jButton2;
+    private javax.swing.JButton backButton;
+    private javax.swing.JLabel bookNameLabel;
+    private javax.swing.JTextField bookNameTextField;
+    private javax.swing.JLabel callNoLabel;
+    private javax.swing.JTextField callNoTextField;
+    private javax.swing.JTextField contactTextField;
+    private javax.swing.JButton issueButton;
     private javax.swing.JLabel jLabel1;
     private javax.swing.JLabel jLabel2;
-    private javax.swing.JLabel jLabel3;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JTextField jTextField1;
-    private javax.swing.JTextField jTextField2;
+    private javax.swing.JLabel returnDateLabel;
+    private javax.swing.JTextField returnDateTextField;
+    private javax.swing.JLabel studentIdLabel;
+    private javax.swing.JTextField studentIdTextField;
+    private javax.swing.JLabel title;
     // End of variables declaration//GEN-END:variables
 }

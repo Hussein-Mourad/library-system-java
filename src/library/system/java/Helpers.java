@@ -21,6 +21,7 @@ import java.util.logging.Logger;
 public class Helpers {
 
     public static void main(String[] args) {
+        System.out.println(getFileCount("books.csv"));
     }
 
     public static String capitalizeFirstLetter(String str) {
