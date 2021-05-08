@@ -5,11 +5,6 @@
  */
 package library.system.java;
 
-import java.io.BufferedReader;
-import java.io.File;
-import java.io.FileReader;
-import java.io.FileWriter;
-import java.io.IOException;
 import java.util.regex.Pattern;
 import javax.swing.*;
 
@@ -18,17 +13,12 @@ import javax.swing.*;
  */
 public class AdminAddLibrarianForm extends javax.swing.JFrame {
 
-    private int librariansCount;
+    private int librariansCount = FileOperations.getFileCount("librarians.csv");
 
     /**
      * Creates new form AddLibrarian
      */
     public AdminAddLibrarianForm() {
-        try {
-            getLibrariansCount();
-        } catch (IOException e) {
-            e.printStackTrace(System.out);
-        }
         initComponents();
     }
 
@@ -215,7 +205,24 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
             // regex source: https://regexr.com/3c53v, https://www.w3schools.com/java/java_regex.asp
             JOptionPane.showMessageDialog(this, "Invalid contact number", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            saveLibrarian();
+            String comma = ",";
+            // stores librarian data in a string separated by comma
+            String line = String.valueOf(++librariansCount) + comma + this.nameTextField.getText() + comma
+                    + String.valueOf(this.passwordTextField.getPassword()) + comma
+                    + this.emailTextField.getText() + comma + this.addressTextField.getText() + comma
+                    + this.cityTextField.getText() + comma + this.contactNoTextField.getText();
+
+            FileOperations.appendLineToFile("librarians.csv", line);
+
+            // Resets the input fields
+            this.nameTextField.setText("");
+            this.passwordTextField.setText("");
+            this.emailTextField.setText("");
+            this.addressTextField.setText("");
+            this.cityTextField.setText("");
+            this.contactNoTextField.setText("");
+            // Shows sucess message
+            JOptionPane.showMessageDialog(this, "Librarian Added Successfully");
         }
 
     }//GEN-LAST:event_addButtonActionPerformed
@@ -224,56 +231,6 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
         this.setVisible(false);
         new AdminSection().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
-
-    private void getLibrariansCount() throws IOException {
-        String filename = "librarians.csv";
-        // Gets the absolute path of the file from current working directory
-        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-        String line;
-        // Opens the file
-        try (BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
-            while ((line = br.readLine()) != null) //reads the content of the file
-            {
-                if (!line.startsWith("Id")) {
-                    librariansCount++; // counts the librarians
-                }
-            }
-        }
-    }
-
-    private void saveLibrarian() {
-        String filename = "librarians.csv";
-        // Gets the absolute path of the file from current working directory
-        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-        // Opens the file
-        try {
-            try (FileWriter fileWriter = new FileWriter(absoluteFilePath, true)) {
-                String sep = ",";
-                // stores librarian data in a string
-                String librarian = String.valueOf(++librariansCount) + sep + this.nameTextField.getText() + sep
-                        + String.valueOf(this.passwordTextField.getPassword()) + sep
-                        + this.emailTextField.getText() + sep + this.addressTextField.getText() + sep
-                        + this.cityTextField.getText() + sep + this.contactNoTextField.getText();
-                // append it to the file
-                fileWriter.append(librarian);
-                // close the file
-                fileWriter.close();
-            }
-        } catch (IOException ex) {
-            // handles errors
-            ex.printStackTrace(System.out);
-            System.exit(1);
-        }
-        // Resets the input fields
-        this.nameTextField.setText("");
-        this.passwordTextField.setText("");
-        this.emailTextField.setText("");
-        this.addressTextField.setText("");
-        this.cityTextField.setText("");
-        this.contactNoTextField.setText("");
-        // Shows sucess message
-        JOptionPane.showMessageDialog(this, "Librarian Added Successfully");
-    }
 
     /**
      * @param args the command line arguments

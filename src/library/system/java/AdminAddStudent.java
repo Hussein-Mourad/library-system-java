@@ -14,6 +14,8 @@ import javax.swing.JOptionPane;
  */
 public class AdminAddStudent extends javax.swing.JFrame {
 
+    private int studentCount = FileOperations.getFileCount("students.csv");
+
     /**
      * Creates new form AdminAddStudent
      */
@@ -207,7 +209,24 @@ public class AdminAddStudent extends javax.swing.JFrame {
             // regex source: https://regexr.com/3c53v, https://www.w3schools.com/java/java_regex.asp
             JOptionPane.showMessageDialog(this, "Invalid contact number", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            saveLibrarian();
+            String comma = ",";
+            // stores librarian data in a string separated by comma
+            String line = String.valueOf(++studentCount) + comma + this.nameTextField.getText() + comma
+                    + String.valueOf(this.passwordTextField.getPassword()) + comma
+                    + this.emailTextField.getText() + comma + this.addressTextField.getText() + comma
+                    + this.cityTextField.getText() + comma + this.contactNoTextField.getText();
+
+            FileOperations.appendLineToFile("students.csv", line);
+
+            // Resets the input fields
+            this.nameTextField.setText("");
+            this.passwordTextField.setText("");
+            this.emailTextField.setText("");
+            this.addressTextField.setText("");
+            this.cityTextField.setText("");
+            this.contactNoTextField.setText("");
+            // Shows sucess message
+            JOptionPane.showMessageDialog(this, "Student Added Successfully");
         }
     }//GEN-LAST:event_addButtonActionPerformed
 
@@ -244,10 +263,8 @@ public class AdminAddStudent extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new AdminAddStudent().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new AdminAddStudent().setVisible(true);
         });
     }
 
