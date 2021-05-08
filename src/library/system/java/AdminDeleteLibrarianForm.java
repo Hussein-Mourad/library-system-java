@@ -5,6 +5,11 @@
  */
 package library.system.java;
 
+import java.io.BufferedReader;
+import java.io.File;
+import java.io.FileReader;
+import java.io.IOException;
+import java.util.HashMap;
 import javax.swing.JOptionPane;
 
 /**
@@ -12,6 +17,8 @@ import javax.swing.JOptionPane;
  * @author hussein
  */
 public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
+
+    private HashMap<Integer, String> librarians = new HashMap<>();
 
     /**
      * Creates new form DeleteLibrarianForm
@@ -136,8 +143,8 @@ public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-       this.setVisible(false);
-       new AdminSection().setVisible(true);
+        this.setVisible(false);
+        new AdminSection().setVisible(true);
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
@@ -148,6 +155,58 @@ public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
         // TODO add your handling code here:
     }//GEN-LAST:event_nameTextFieldActionPerformed
 
+    private void readLibrarianData() throws IOException {
+        String filename = "admins.csv";
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        String line;
+
+        try ( //parsing a CSV file into BufferedReader class constructor
+                BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
+            while ((line = br.readLine()) != null) //returns a Boolean value
+            {
+                String[] arr = line.split(",");
+                if (!arr[0].equals("Id")) {
+                    librarians.put(Integer.valueOf(arr[0].trim()), arr[1].trim());
+                }
+            }
+        }
+    }
+
+    private void writeLibrarianData() throws IOException {
+        String filename = "librarians.csv";
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        // Opens the file
+        try {
+            try (FileWriter fileWriter = new FileWriter(absoluteFilePath, true)) {
+                String sep = ",";
+                // stores librarian data in a string
+                String librarian = "\n" + String.valueOf(++librariansCount) + sep + this.nameTextField.getText() + sep
+                        + String.valueOf(this.passwordTextField.getPassword()) + sep
+                        + this.emailTextField.getText() + sep + this.addressTextField.getText() + sep
+                        + this.cityTextField.getText() + sep + this.contactNoTextField.getText();
+                // append it to the file
+                fileWriter.append(librarian);
+                // close the file
+                fileWriter.close();
+            }
+        } catch (IOException ex) {
+            // handles errors
+            ex.printStackTrace(System.out);
+            System.exit(1);
+        }
+        // Resets the input fields
+        this.nameTextField.setText("");
+        this.passwordTextField.setText("");
+        this.emailTextField.setText("");
+        this.addressTextField.setText("");
+        this.cityTextField.setText("");
+        this.contactNoTextField.setText("");
+        // Shows sucess message
+        JOptionPane.showMessageDialog(this, "Librarian Added Successfully");
+    }
+
     /**
      * @param args the command line arguments
      */
@@ -155,7 +214,7 @@ public class AdminDeleteLibrarianForm extends javax.swing.JFrame {
         /* Set the Nimbus look and feel */
         //<editor-fold defaultstate="collapsed" desc=" Look and feel setting code (optional) ">
         /* If Nimbus (introduced in Java SE 6) is not available, stay with the default look and feel.
-         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html 
+         * For details see http://download.oracle.com/javase/tutorial/uiswing/lookandfeel/plaf.html
          */
         try {
             for (javax.swing.UIManager.LookAndFeelInfo info : javax.swing.UIManager.getInstalledLookAndFeels()) {

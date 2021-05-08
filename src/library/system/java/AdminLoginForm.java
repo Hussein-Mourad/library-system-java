@@ -26,7 +26,7 @@ public class AdminLoginForm extends javax.swing.JFrame {
         try {
             readCredentialData();
         } catch (IOException e) {
-            e.printStackTrace();
+            e.printStackTrace(System.out);
         }
         initComponents();
     }
@@ -210,15 +210,17 @@ public class AdminLoginForm extends javax.swing.JFrame {
         String filename = "admins.csv";
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
-        String line = "";
+        String line;
 
-        //parsing a CSV file into BufferedReader class constructor
-        BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath));
-        while ((line = br.readLine()) != null) //returns a Boolean value
-        {
-            String[] arr = line.split(",");
-            admins.put(arr[0].trim(), arr[1].trim());
-
+        try ( //parsing a CSV file into BufferedReader class constructor
+                BufferedReader br = new BufferedReader(new FileReader(absoluteFilePath))) {
+            while ((line = br.readLine()) != null) //returns a Boolean value
+            {
+                String[] arr = line.split(",");
+                if (!arr[0].equals("Id")) {
+                    admins.put(arr[1].trim(), arr[2].trim());
+                }
+            }
         }
     }
 
