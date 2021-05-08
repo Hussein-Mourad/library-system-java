@@ -13,10 +13,13 @@ import javax.swing.JOptionPane;
  */
 public class LibrarianReturnBooksForm extends javax.swing.JFrame {
 
+    private String type;
+
     /**
      * Creates new form ReturnBooks
      */
     public LibrarianReturnBooksForm() {
+
         initComponents();
     }
 
@@ -56,9 +59,11 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
 
         jLabel4.setText("StudentId");
 
-        jTextField1.setText("k@4");
-
-        jTextField2.setText("100");
+        jTextField2.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                jTextField2ActionPerformed(evt);
+            }
+        });
 
         jButton1.setText("Return Book");
         jButton1.addActionListener(new java.awt.event.ActionListener() {
@@ -154,9 +159,25 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
     }//GEN-LAST:event_jButton2ActionPerformed
 
     private void jButton1ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jButton1ActionPerformed
-        JOptionPane.showMessageDialog(this, "Book Returned Successfully!");
+        boolean deleted = Helpers.deleteRecord("issuedbooks.csv", 1, this.jTextField1.getText(), 2, this.jTextField2.getText());
+
+        // Show appropriate message
+        if (deleted == true) {
+            // Resets the input fields
+            this.jTextField1.setText("");
+            this.jTextField2.setText("");
+            // Shows sucess message
+            JOptionPane.showMessageDialog(this, this.type + " Deleted Successfully");
+        } else {
+            // Shows error message
+            JOptionPane.showMessageDialog(this, this.type + " not found", "Error", JOptionPane.ERROR_MESSAGE);
+        }
 
     }//GEN-LAST:event_jButton1ActionPerformed
+
+    private void jTextField2ActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_jTextField2ActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_jTextField2ActionPerformed
 
     /**
      * @param args the command line arguments
