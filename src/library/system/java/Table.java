@@ -99,7 +99,7 @@ public class Table extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        if (this.type == "Admin") {
+        if (this.type.equals("Admin")) {
             this.setVisible(false);
             new AdminSection().setVisible(true);
         }
