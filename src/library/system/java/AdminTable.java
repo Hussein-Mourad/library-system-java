@@ -8,15 +8,23 @@ package library.system.java;
 /**
  * @author hussein
  */
-public class AdminLibrariansTable extends javax.swing.JFrame {
+public class AdminTable extends javax.swing.JFrame {
 
-    private Object[][] tableData = FileOperations.readTableData("librarians.csv");
-    private String[] tableHeaders = FileOperations.readTableHeaders("librarians.csv");
+    String type;
+    String filename;
+    private Object[][] tableData;
+    private String[] tableHeaders;
 
     /**
      * Creates new form LibrariansTable
+     *
+     * @param type Takes the type of form
      */
-    public AdminLibrariansTable() {
+    public AdminTable(String type) {
+        this.type = type.substring(0, 1).toUpperCase() + type.substring(1);
+        this.filename = type + "s.csv";
+        tableData = FileOperations.readTableData(this.filename);
+        tableHeaders = FileOperations.readTableHeaders(this.filename);
         initComponents();
     }
 
@@ -31,7 +39,7 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         jScrollPane1 = new javax.swing.JScrollPane();
-        librariansTable = new javax.swing.JTable();
+        studentsTable = new javax.swing.JTable();
         backButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -51,19 +59,8 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
             .addGap(0, 0, Short.MAX_VALUE)
         );
 
-        librariansTable.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {"1", "Ahmed", "test123", "ahmed@test.com", "123 main st", "alex", "0105132465"},
-                {"2", "Mohamed", "dfklg", "moh@app.com", "123 main st", "alex", "0104878897"},
-                {"3", "Hussein", "kljlkj", "hussein@gmail.com", "123 main st.", "alex", "01847987"},
-                {"4", "Omar", "lkjlk;;", "omar@test.com", "123 main st.", "alex", "0189749874"},
-                {"5", "Sherif", "90ukjhk", "sherif@test.com", "123 main st", "alex", null}
-            },
-            new String [] {
-                "id", "name", "password", "email", "address", "city", "contact"
-            }
-        ));
-        jScrollPane1.setViewportView(librariansTable);
+        studentsTable.setModel(new javax.swing.table.DefaultTableModel(tableData,tableHeaders));
+        jScrollPane1.setViewportView(studentsTable);
 
         backButton.setText("Back");
         backButton.addActionListener(new java.awt.event.ActionListener() {
@@ -124,8 +121,14 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException | InstantiationException | IllegalAccessException | javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminLibrariansTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminTable.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
+        //</editor-fold>
         //</editor-fold>
         //</editor-fold>
 
@@ -134,7 +137,7 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AdminLibrariansTable().setVisible(true);
+            new AdminTable("librairan").setVisible(true);
         });
     }
 
@@ -142,6 +145,6 @@ public class AdminLibrariansTable extends javax.swing.JFrame {
     private javax.swing.JButton backButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JScrollPane jScrollPane1;
-    private javax.swing.JTable librariansTable;
+    private javax.swing.JTable studentsTable;
     // End of variables declaration//GEN-END:variables
 }

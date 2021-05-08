@@ -6,19 +6,27 @@
 package library.system.java;
 
 import java.util.regex.Pattern;
-import javax.swing.*;
+import javax.swing.JOptionPane;
 
 /**
+ *
  * @author hussein
  */
-public class AdminAddLibrarianForm extends javax.swing.JFrame {
+public class AdminAddForm extends javax.swing.JFrame {
 
-    private int librariansCount = FileOperations.getFileCount("librarians.csv");
+    String type;
+    String filename;
+    private int fileCount;
 
     /**
-     * Creates new form AddLibrarian
+     * Creates new form AdminAddStudent
+     *
+     * @param type Takes the title of this form
      */
-    public AdminAddLibrarianForm() {
+    public AdminAddForm(String type) {
+        this.type = type.substring(0, 1).toUpperCase() + type.substring(1);
+        this.filename = type + "s.csv";
+        fileCount = FileOperations.getFileCount(filename);
         initComponents();
     }
 
@@ -49,12 +57,14 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
         contactNoLabel = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
-        setTitle("University Library System");
+        setTitle("University Library System ");
+        setLocationByPlatform(true);
         setMinimumSize(new java.awt.Dimension(500, 400));
         setResizable(false);
+        setSize(new java.awt.Dimension(500, 400));
 
         title.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
-        title.setText("Add Librarian");
+        title.setText("Add a "+ this.type);
 
         cityTextField.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
@@ -62,7 +72,7 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
             }
         });
 
-        addButton.setText("Add Librarian");
+        addButton.setText("Add Student");
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -95,18 +105,15 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(213, 213, 213)
                 .addComponent(title)
-                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addContainerGap(187, Short.MAX_VALUE))
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
                 .addGap(34, 34, 34)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE))
-                    .addGroup(jPanel1Layout.createSequentialGroup()
-                        .addComponent(contactNoLabel)
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(contactNoTextField, javax.swing.GroupLayout.PREFERRED_SIZE, 308, javax.swing.GroupLayout.PREFERRED_SIZE))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(backButton, javax.swing.GroupLayout.Alignment.LEADING, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(contactNoLabel, javax.swing.GroupLayout.Alignment.LEADING))
+                        .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
                     .addGroup(jPanel1Layout.createSequentialGroup()
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(passwordLabel)
@@ -115,13 +122,15 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
                             .addComponent(cityLabel)
                             .addComponent(nameLabel))
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING, false)
-                            .addComponent(emailTextField, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
-                            .addComponent(passwordTextField)
-                            .addComponent(nameTextField)
-                            .addComponent(addressTextField)
-                            .addComponent(cityTextField))))
-                .addGap(67, 67, 67))
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING, false)
+                            .addComponent(contactNoTextField, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, 308, Short.MAX_VALUE)
+                            .addComponent(addButton, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.PREFERRED_SIZE, 110, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addComponent(nameTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(passwordTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(emailTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(addressTextField, javax.swing.GroupLayout.Alignment.TRAILING)
+                            .addComponent(cityTextField, javax.swing.GroupLayout.Alignment.TRAILING))
+                        .addGap(37, 37, 37))))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -156,7 +165,7 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(addButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap(32, Short.MAX_VALUE))
+                .addContainerGap(31, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -165,13 +174,15 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
@@ -207,12 +218,12 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
         } else {
             String comma = ",";
             // stores librarian data in a string separated by comma
-            String line = String.valueOf(++librariansCount) + comma + this.nameTextField.getText() + comma
+            String line = String.valueOf(++fileCount) + comma + this.nameTextField.getText() + comma
                     + String.valueOf(this.passwordTextField.getPassword()) + comma
                     + this.emailTextField.getText() + comma + this.addressTextField.getText() + comma
                     + this.cityTextField.getText() + comma + this.contactNoTextField.getText();
 
-            FileOperations.appendLineToFile("librarians.csv", line);
+            FileOperations.appendLineToFile(filename, line);
 
             // Resets the input fields
             this.nameTextField.setText("");
@@ -222,9 +233,8 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
             this.cityTextField.setText("");
             this.contactNoTextField.setText("");
             // Shows sucess message
-            JOptionPane.showMessageDialog(this, "Librarian Added Successfully");
+            JOptionPane.showMessageDialog(this, this.type + " Added Successfully");
         }
-
     }//GEN-LAST:event_addButtonActionPerformed
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -249,13 +259,13 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
                 }
             }
         } catch (ClassNotFoundException ex) {
-            java.util.logging.Logger.getLogger(AdminAddLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminAddForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (InstantiationException ex) {
-            java.util.logging.Logger.getLogger(AdminAddLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminAddForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (IllegalAccessException ex) {
-            java.util.logging.Logger.getLogger(AdminAddLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminAddForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         } catch (javax.swing.UnsupportedLookAndFeelException ex) {
-            java.util.logging.Logger.getLogger(AdminAddLibrarianForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
+            java.util.logging.Logger.getLogger(AdminAddForm.class.getName()).log(java.util.logging.Level.SEVERE, null, ex);
         }
         //</editor-fold>
         //</editor-fold>
@@ -264,7 +274,7 @@ public class AdminAddLibrarianForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new AdminAddLibrarianForm().setVisible(true);
+            new AdminAddForm("librarian").setVisible(true);
         });
     }
 
