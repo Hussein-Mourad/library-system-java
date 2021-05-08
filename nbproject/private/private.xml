@@ -6,13 +6,14 @@
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianAddBook.java</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/AdminSection.java</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianIssuedBooks.java</file>
+            <file>file:/D:/java%20uni%20projects/gui/library-system-java/database/books.csv</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianReturnBooksForm.java</file>
-            <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/AdminAddLibrarianForm.java</file>
-            <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/AdminLoginForm.java</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianBooksTable.java</file>
+            <file>file:/D:/java%20uni%20projects/gui/library-system-java/database/issuedbooks.csv</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/HomePage.java</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianSection.java</file>
-            <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianFormLogin.java</file>
+            <file>file:/D:/java%20uni%20projects/gui/library-system-java/database/librarians.csv</file>
+            <file>file:/D:/java%20uni%20projects/gui/library-system-java/database/students.csv</file>
             <file>file:/D:/java%20uni%20projects/gui/library-system-java/src/library/system/java/LibrarianIssueBookForm.java</file>
         </group>
     </open-files>
