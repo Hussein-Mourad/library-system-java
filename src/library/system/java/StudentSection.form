@@ -50,7 +50,7 @@
                   <EmptySpace pref="101" max="32767" attributes="0"/>
                   <Group type="103" groupAlignment="2" attributes="0">
                       <Component id="title" alignment="2" min="-2" max="-2" attributes="0"/>
-                      <Component id="addLibrarianButton" alignment="2" min="-2" pref="155" max="-2" attributes="0"/>
+                      <Component id="viewIssuedBooks" alignment="2" min="-2" pref="155" max="-2" attributes="0"/>
                       <Component id="logoutButton" alignment="2" min="-2" pref="155" max="-2" attributes="0"/>
                   </Group>
                   <EmptySpace min="-2" pref="120" max="-2" attributes="0"/>
@@ -63,7 +63,7 @@
                   <EmptySpace max="-2" attributes="0"/>
                   <Component id="title" min="-2" max="-2" attributes="0"/>
                   <EmptySpace min="-2" pref="61" max="-2" attributes="0"/>
-                  <Component id="addLibrarianButton" min="-2" pref="40" max="-2" attributes="0"/>
+                  <Component id="viewIssuedBooks" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace type="unrelated" max="-2" attributes="0"/>
                   <Component id="logoutButton" min="-2" pref="40" max="-2" attributes="0"/>
                   <EmptySpace pref="91" max="32767" attributes="0"/>
@@ -80,12 +80,12 @@
             <Property name="text" type="java.lang.String" value="Student Section"/>
           </Properties>
         </Component>
-        <Component class="javax.swing.JButton" name="addLibrarianButton">
+        <Component class="javax.swing.JButton" name="viewIssuedBooks">
           <Properties>
             <Property name="text" type="java.lang.String" value="View Issued Books"/>
           </Properties>
           <Events>
-            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="addLibrarianButtonActionPerformed"/>
+            <EventHandler event="actionPerformed" listener="java.awt.event.ActionListener" parameters="java.awt.event.ActionEvent" handler="viewIssuedBooksActionPerformed"/>
           </Events>
         </Component>
         <Component class="javax.swing.JButton" name="logoutButton">

@@ -11,7 +11,8 @@ package library.system.java;
 public class Table extends javax.swing.JFrame {
 
     String filename;
-    private Object[][] tableData;
+    private String section;
+    private String[][] tableData;
     private String[] tableHeaders;
 
     /**
@@ -19,11 +20,13 @@ public class Table extends javax.swing.JFrame {
      *
      * @param filename
      */
-    public Table(String filename) {
+    public Table(String filename, String section) {
         this.filename = filename;
+        this.section = section;
         tableData = Helpers.readTableData(this.filename);
         tableHeaders = Helpers.readTableHeaders(this.filename);
         initComponents();
+        this.section = section;
     }
 
     /**
@@ -97,11 +100,16 @@ public class Table extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        if (this.filename.equals("admins.csv")) {
+        if (section.equals("admin")) {
             this.setVisible(false);
             new AdminSection().setVisible(true);
+        } else if (section.equals("librarian")) {
+            this.setVisible(false);
+            new LibrarianSection().setVisible(true);
+        } else if (section.equals("student")) {
+            this.setVisible(false);
+            new LibrarianSection().setVisible(true);
         }
-
     }//GEN-LAST:event_backButtonActionPerformed
 
     /**
@@ -146,7 +154,7 @@ public class Table extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new Table("librairan.csv").setVisible(true);
+            new Table("librairans.csv", "admin").setVisible(true);
         });
     }
 

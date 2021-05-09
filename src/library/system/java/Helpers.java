@@ -69,11 +69,11 @@ public class Helpers {
     }
 
     // reads data from a csv file and returns table data
-    public static Object[][] readTableData(String filename) {
+    public static String[][] readTableData(String filename) {
         // Gets the absolute path of the file from current working directory
         String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
         String line; // reads line by line from file
-        Object[][] tableDataObj = null; // holds table rows as object of objects
+        String[][] tableDataObj = null; // holds table rows as object of objects
         ArrayList<String[]> tableRows = new ArrayList<>();  // reads table rows
 
         //parsing a CSV file into BufferedReader class constructor
@@ -85,7 +85,7 @@ public class Helpers {
             }
             tableDataObj = new String[tableRows.size() - 1][];
             for (int i = 0; i < tableRows.size() - 1; i++) {
-                Object[] row = tableRows.get(i + 1);
+                String[] row = tableRows.get(i + 1);
                 tableDataObj[i] = row;
             }
         } catch (IOException ex) {
@@ -139,7 +139,7 @@ public class Helpers {
 
         // Opens the file to write
         try (FileWriter file = new FileWriter(absoluteFilePath)) {
-            // loop over librarians
+            // loop over array
             int index = 1;
             for (String[] record : data) {
                 // save all except librarian to be deleted
@@ -158,11 +158,30 @@ public class Helpers {
         return deleted;
     }
 
+    // Writes multidimenstional array of strings
+    public static void writeArrayToFile(String filename, String[][] array) {
+
+        // Gets the absolute path of the file from current working directory
+        String absoluteFilePath = System.getProperty("user.dir") + File.separator + "database" + File.separator + filename;
+        String[] tableHeader = readTableHeaders(filename);
+
+        // Opens the file to write
+        try (FileWriter file = new FileWriter(absoluteFilePath)) {
+            // loop over array
+            file.append(String.join(",", tableHeader) + "\n");
+            for (String[] line : array) {
+                file.append(String.join(",", line) + "\n");
+            }
+        } catch (IOException ex) {
+            Logger.getLogger(Helpers.class.getName()).log(Level.SEVERE, null, ex);
+        }
+
+    }
+
     public static boolean isNumeric(String string) {
         int intValue;
 
         if (string == null || string.equals("")) {
-            System.out.println("String cannot be parsed, it is null or empty.");
             return false;
         }
 
@@ -170,7 +189,6 @@ public class Helpers {
             intValue = Integer.parseInt(string);
             return true;
         } catch (NumberFormatException e) {
-            System.out.println("Input String cannot be parsed to Integer.");
         }
         return false;
     }

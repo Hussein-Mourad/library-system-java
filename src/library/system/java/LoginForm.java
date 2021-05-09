@@ -14,7 +14,7 @@ public class LoginForm extends javax.swing.JFrame {
 
     String type;
     String filename;
-    private Object[][] users;
+    private String[][] users;
 
     /**
      * Creates new form AdminLoginForm

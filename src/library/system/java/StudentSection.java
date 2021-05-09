@@ -29,7 +29,7 @@ public class StudentSection extends javax.swing.JFrame {
 
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
-        addLibrarianButton = new javax.swing.JButton();
+        viewIssuedBooks = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -37,10 +37,10 @@ public class StudentSection extends javax.swing.JFrame {
         title.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         title.setText("Student Section");
 
-        addLibrarianButton.setText("View Issued Books");
-        addLibrarianButton.addActionListener(new java.awt.event.ActionListener() {
+        viewIssuedBooks.setText("View Issued Books");
+        viewIssuedBooks.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
-                addLibrarianButtonActionPerformed(evt);
+                viewIssuedBooksActionPerformed(evt);
             }
         });
 
@@ -59,7 +59,7 @@ public class StudentSection extends javax.swing.JFrame {
                 .addContainerGap(101, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(title)
-                    .addComponent(addLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120))
         );
@@ -69,7 +69,7 @@ public class StudentSection extends javax.swing.JFrame {
                 .addContainerGap()
                 .addComponent(title)
                 .addGap(61, 61, 61)
-                .addComponent(addLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(91, Short.MAX_VALUE))
@@ -95,10 +95,10 @@ public class StudentSection extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private void addLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addLibrarianButtonActionPerformed
+    private void viewIssuedBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksActionPerformed
         this.setVisible(false);
-        new AdminAddForm("librarian").setVisible(true);
-    }//GEN-LAST:event_addLibrarianButtonActionPerformed
+        new Table("issuedbooks.csv", "student").setVisible(true);
+    }//GEN-LAST:event_viewIssuedBooksActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         this.setVisible(false);
@@ -133,17 +133,15 @@ public class StudentSection extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new StudentSection().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new StudentSection().setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
-    private javax.swing.JButton addLibrarianButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel title;
+    private javax.swing.JButton viewIssuedBooks;
     // End of variables declaration//GEN-END:variables
 }

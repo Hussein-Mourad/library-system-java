@@ -1,1 +1,3 @@
-Id,BookCallNo,StudentId,StudentName,StudentContact,IssueDate
+Id,BookCallNo,StudentId,StudentName,StudentContact,Issue Date,Return Date
+1,12,1,hussein,0100,2021-05-10 01:16:12,Mon Oct 11 00:00:00 EET 2021
+2,12,1,hussein,0100,2021-05-10 01:19:41,Mon Nov 01 00:00:00 EET 2021

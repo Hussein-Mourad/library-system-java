@@ -163,13 +163,13 @@ public class LibrarianSection extends javax.swing.JFrame {
         this.setVisible(false);    }//GEN-LAST:event_returnBooksBookActionPerformed
 
     private void issuedBooksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issuedBooksButtonActionPerformed
-        new Table("issuedbook.csv").setVisible(true);
+        new Table("issuedbooks.csv", "librarian").setVisible(true);
         this.setVisible(false);
     }//GEN-LAST:event_issuedBooksButtonActionPerformed
 
     private void viewBooksButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewBooksButtonActionPerformed
         this.setVisible(false);
-        new Table("book.csv").setVisible(true);
+        new Table("books.csv", "librarian").setVisible(true);
     }//GEN-LAST:event_viewBooksButtonActionPerformed
 
     /**

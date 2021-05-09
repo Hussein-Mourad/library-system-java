@@ -1,4 +1,4 @@
-Id,callno,name,author,publisher,quantity,issued,added_date
-1,12,h,h,h,3,0,2021-05-08 23:24:03
+Id,Callno.,Name,Author,Publisher,Quantity,Issued,Added date
+1,12,h,h,h,3,2,2021-05-08 23:24:03
 2,2,h,h,h,3,0,2021-05-08 23:24:37
 3,13,j,j,j,3,0,2021-05-08 23:28:30

@@ -8,6 +8,8 @@ package library.system.java;
 import java.text.ParseException;
 import java.text.SimpleDateFormat;
 import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -16,14 +18,17 @@ import javax.swing.JOptionPane;
  */
 public class LibrarianIssueBookForm extends javax.swing.JFrame {
 
-    private Object[][] books = Helpers.readTableData("books.csv");
-    private Object[][] students = Helpers.readTableData("students.csv");
+    private String[][] books = Helpers.readTableData("books.csv");
+    private String[][] students = Helpers.readTableData("students.csv");
+    private int issuedBooksCount = Helpers.getFileCount("issuedbooks.csv");
+    private String studentName;
+    private Date todayDate = new Date();
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
      * Creates new form IssueBookForm
      */
     public LibrarianIssueBookForm() {
-        System.out.println(students.length);
         initComponents();
     }
 
@@ -199,49 +204,9 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
         pack();
     }// </editor-fold>//GEN-END:initComponents
 
-    private boolean isValidBook() {
-        // TODO add important credentials into sets
-        // Check if the user enters a valid book
-
-        for (Object[] student : students) {
-            String id = student[0].toString().trim();
-            String contactNo = student[7].toString().trim();
-            if (!this.studentIdTextField.getText().trim().equals(id)) {
-                JOptionPane.showMessageDialog(this, "Invalid Student Id", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            } else if (!this.contactTextField.getText().trim().equals(contactNo)) {
-                JOptionPane.showMessageDialog(this, "Invalid Student Id", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            } else {
-
-            }
-        }
-
-        int index = 1;
-        for (Object[] book : books) {
-            index++;
-            String callNo = book[1].toString().trim();
-            String bookName = book[2].toString().trim();
-            String bookQuantity = book[5].toString().trim();
-            String issuedQuantity = book[6].toString().trim();
-            if (!this.callNoTextField.getText().trim().equals(callNo)) {
-                JOptionPane.showMessageDialog(this, "Invalid call no", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            } else if (!this.bookNameTextField.getText().trim().equals(bookName)) {
-                JOptionPane.showMessageDialog(this, "Invalid book name", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            } else if (issuedQuantity.equals(bookQuantity)) {
-                JOptionPane.showMessageDialog(this, "All book copies are issued", "Error", JOptionPane.ERROR_MESSAGE);
-                return false;
-            }
-        }
-        return true;
-    }
-
     private boolean isValidDate(String returnDate) {
         // Validates date
         try {
-            Date todayDate = new Date();
             Date formattedReturnDate = new SimpleDateFormat("yyyy-MM-dd").parse(returnDate);
             if (!formattedReturnDate.after(todayDate)) {
                 return false;
@@ -252,36 +217,58 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
         return true;
     }
 
+    // Checks that the student data is valid using binary search
     private boolean isValidStudent(String studentId, String contactNo) {
         int first = 0;
         int last = students.length;
         int mid = (first + last) / 2;
 
+        // Handles if student id doesn't exists
+        if (Integer.valueOf(studentId) > students.length) {
+            return false;
+        }
+
         while (first <= last) {
-            if (Integer.valueOf((String) students[mid][0]) < Integer.valueOf(studentId)) {
+            String id = students[mid][0].trim();
+            String name = students[mid][1].trim();
+            String contact = students[mid][6].trim();
+            if (Integer.valueOf(id) < Integer.valueOf(studentId)) {
                 first = mid + 1;
-            } else if (arr[mid] == key) {
-                System.out.println("Element is found at index: " + mid);
-                break;
+            } else if (id.equals(studentId) && contact.equals(contactNo)) {
+                this.studentName = name;
+                return true;
+
             } else {
                 last = mid - 1;
             }
             mid = (first + last) / 2;
         }
-        if (first > last) {
-            System.out.println("Element is not found!");
-        }
-        for (Object[] student : students) {
-            String id = student[0].toString().trim();
-            String contact = student[7].toString().trim();
-            if (studentId.equals(id) && contactNo.equals(contact)) {
-                return true;
-            }
-        }
         return false;
     }
 
+    // returns -1 if it is not found
+    // returns -2 if all books are issued
+    // returns the id of the book if it is found
+    private int isValidBook(String name, String callNo) {
+        for (String[] book : books) {
+            Integer bookId = Integer.valueOf(book[0].trim());
+            String bookCallNo = book[1].trim();
+            String bookName = book[2].trim();
+            String bookQuantity = book[5].trim();
+            String issuedQuantity = book[6].trim();
+            if (bookCallNo.equals(callNo) && bookName.equals(name)) {
+                if (issuedQuantity.equals(bookQuantity)) {
+                    return -2;
+                } else {
+                    return bookId - 1;
+                }
+            }
+        }
+        return -1;
+    }
+
     private void issueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueButtonActionPerformed
+        final String comma = ",";
         final String callNo = this.callNoTextField.getText().trim();
         final String studentId = this.studentIdTextField.getText().trim();
         final String contactNo = this.contactTextField.getText().trim();
@@ -300,13 +287,46 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter a return date");
         } else if (!Helpers.isNumeric(studentId)) {
             JOptionPane.showMessageDialog(this, "Student id must be a number");
+        } else if (!Helpers.isNumeric(contactNo)) {
+            JOptionPane.showMessageDialog(this, "Contact number must be a number");
         } else if (!isValidDate(returnDate)) {
-            JOptionPane.showMessageDialog(this, "Invalid return data format or value");
+            JOptionPane.showMessageDialog(this, "Invalid return date format or value", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!isValidStudent(studentId, contactNo)) {
+            JOptionPane.showMessageDialog(this, "Invalid student data", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
+            int bookId = isValidBook(bookName, callNo);
+            switch (bookId) {
+                case -1:
+                    JOptionPane.showMessageDialog(this, "Invalid book data", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                case -2:
+                    JOptionPane.showMessageDialog(this, "Sorry all copies of the book aren't available", "Error", JOptionPane.ERROR_MESSAGE);
+                    break;
+                default:
+                    // adds required data to file
+                    String id = String.valueOf(++issuedBooksCount);
+                    String now = formatter.format(todayDate);
+                    Date formattedReturnDate;
+                    try {
+                        formattedReturnDate = formatter.format(new SimpleDateFormat("yyyy-MM-dd").parse(returnDate));
+                        String issuedBookData = id + comma + callNo + comma + studentId + comma + studentName + comma + contactNo + comma + now + comma + formattedReturnDate;
+                        Helpers.appendLineToFile("issuedbooks.csv", issuedBookData);
+                    } catch (ParseException ex) {
+                        Logger.getLogger(LibrarianIssueBookForm.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    // increment value of issued books and write it to file again
+                    this.books[bookId][6] = String.valueOf(Integer.valueOf(books[bookId][6]) + 1);
+                    Helpers.writeArrayToFile("books.csv", books);
 
-            // Check if the user enters a valid book
-            //
-//            JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
+                    // resets input fields
+                    this.callNoTextField.setText("");
+                    this.studentIdTextField.setText("");
+                    this.contactTextField.setText("");
+                    this.bookNameTextField.setText("");
+                    this.returnDateTextField.setText("");
+                    JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
+                    break;
+            }
         }
     }//GEN-LAST:event_issueButtonActionPerformed
 

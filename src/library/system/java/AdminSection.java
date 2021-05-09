@@ -180,12 +180,12 @@ public class AdminSection extends javax.swing.JFrame {
 
     private void viewLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewLibrarianButtonActionPerformed
         this.setVisible(false);
-        new Table("librarian.csv").setVisible(true);
+        new Table("librarians.csv", "admin").setVisible(true);
     }//GEN-LAST:event_viewLibrarianButtonActionPerformed
 
     private void viewStudentsButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewStudentsButtonActionPerformed
         this.setVisible(false);
-        new Table("student.csv").setVisible(true);
+        new Table("students.csv", "admin").setVisible(true);
     }//GEN-LAST:event_viewStudentsButtonActionPerformed
 
     private void AddStudentButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_AddStudentButtonActionPerformed
