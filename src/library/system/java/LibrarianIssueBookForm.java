@@ -6,10 +6,7 @@
 package library.system.java;
 
 import java.text.ParseException;
-import java.text.SimpleDateFormat;
 import java.util.Date;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -128,15 +125,14 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
                 .addContainerGap(202, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(jLabel2)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(callNoLabel)
-                        .addComponent(studentIdLabel)
-                        .addComponent(jLabel1)
-                        .addComponent(bookNameLabel)
-                        .addComponent(returnDateLabel)
-                        .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)))
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(callNoLabel)
+                    .addComponent(studentIdLabel)
+                    .addComponent(jLabel1)
+                    .addComponent(bookNameLabel)
+                    .addComponent(returnDateLabel)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 85, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(jLabel2))
                 .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
                     .addComponent(studentIdTextField, javax.swing.GroupLayout.Alignment.LEADING)
@@ -202,6 +198,9 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isValidBook() {
+        // TODO add important credentials into sets
+        // Check if the user enters a valid book
+
         for (Object[] student : students) {
             String id = student[0].toString().trim();
             String contactNo = student[7].toString().trim();
@@ -215,7 +214,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
                 try {
                     Date todayDate = new Date();
                     Date returnDate = new SimpleDateFormat("yyyy-MM-dd").parse(this.returnDateTextField.getText().trim());
-                    if (!todayDate.before(returnDate)) {
+                    if (!returnDate.after(todayDate)) {
                         JOptionPane.showMessageDialog(this, "Invalid date", "Error", JOptionPane.ERROR_MESSAGE);
                         return false;
                     }
@@ -226,7 +225,9 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             }
         }
 
+        int index = 1;
         for (Object[] book : books) {
+            index++;
             String callNo = book[1].toString().trim();
             String bookName = book[2].toString().trim();
             String bookQuantity = book[5].toString().trim();
@@ -244,7 +245,6 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
         }
         return true;
     }
-
     private void issueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueButtonActionPerformed
         if (this.callNoTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter book call no");
@@ -256,8 +256,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Please enter book name");
         } else if (this.returnDateTextField.getText().trim().isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter book call no");
-        } else if (isValidBook()) {
-            Helpers.deleteRecord("books.csv", ERROR, Col1, ERROR, Col2)
+        } else {
             JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
         }
     }//GEN-LAST:event_issueButtonActionPerformed

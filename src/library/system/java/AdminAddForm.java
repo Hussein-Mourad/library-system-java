@@ -193,45 +193,52 @@ public class AdminAddForm extends javax.swing.JFrame {
     }//GEN-LAST:event_cityTextFieldActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
-        // input validation
-        if (this.nameTextField.getText().trim().isEmpty()) {
+        final String comma = ",";
+        final String id = String.valueOf(++fileCount);
+        final String name = this.nameTextField.getText().trim();
+        final String password = String.valueOf(passwordTextField.getPassword()).trim();
+        final String email = this.emailTextField.getText().trim();
+        final String address = this.addressTextField.getText().trim();
+        final String city = this.cityTextField.getText().trim();
+        final String contact = this.contactNoTextField.getText().trim();
+
+        //regex sources: https://regexr.com/2ri2c, https://regexr.com/3c53v , https://www.w3schools.com/java/java_regex.asp
+        final String emailRegex = "\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b";
+        final String contactRegex = "^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s0-9]*$";
+
+// input validation
+        if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a name");
-        } else if (String.valueOf(this.passwordTextField.getPassword()).trim().isEmpty()) {
+        } else if (password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a password");
-        } else if (this.emailTextField.getText().trim().isEmpty()) {
+        } else if (email.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an email");
-        } else if (this.addressTextField.getText().trim().isEmpty()) {
+        } else if (address.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an address");
-        } else if (this.cityTextField.getText().trim().isEmpty()) {
+        } else if (city.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a city");
-        } else if (this.contactNoTextField.getText().trim().isEmpty()) {
+        } else if (contact.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a contact number");
-        } else if (!Pattern.compile("\\b[\\w\\.-]+@[\\w\\.-]+\\.\\w{2,4}\\b", Pattern.CASE_INSENSITIVE).matcher(this.emailTextField.getText().trim()).matches()) {
-            //regex sources: https://regexr.com/2ri2c, https://www.w3schools.com/java/java_regex.asp
+        } else if (!Pattern.compile(emailRegex, Pattern.CASE_INSENSITIVE).matcher(email).matches()) {
             JOptionPane.showMessageDialog(this, "Invalid email address", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.compile("[a-zA-z]+", Pattern.CASE_INSENSITIVE).matcher(this.cityTextField.getText().trim()).matches()) {
-            // Matches any word
+        } else if (!Pattern.compile("[a-z]+", Pattern.CASE_INSENSITIVE).matcher(cityTextField.getText()).matches()) {
             JOptionPane.showMessageDialog(this, "Invalid city name", "Error", JOptionPane.ERROR_MESSAGE);
-        } else if (!Pattern.compile("^[+]*[(]{0,1}[0-9]{1,4}[)]{0,1}[-\\s0-9]*$").matcher(this.contactNoTextField.getText().trim()).matches()) {
-            // regex source: https://regexr.com/3c53v, https://www.w3schools.com/java/java_regex.asp
+        } else if (!Pattern.compile(contactRegex).matcher(contact).matches()) {
             JOptionPane.showMessageDialog(this, "Invalid contact number", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String comma = ",";
             // stores librarian data in a string separated by comma
-            String line = String.valueOf(++fileCount) + comma + this.nameTextField.getText().trim() + comma
-                    + String.valueOf(this.passwordTextField.getPassword()) + comma
-                    + this.emailTextField.getText().trim() + comma + this.addressTextField.getText().trim() + comma
-                    + this.cityTextField.getText().trim() + comma + this.contactNoTextField.getText().trim();
+            String line = id + comma + name + comma + password + comma + email + comma + address + comma + city + comma + contact;
 
             Helpers.appendLineToFile(filename, line);
 
             // Resets the input fields
-            this.nameTextField.setText("");
-            this.passwordTextField.setText("");
-            this.emailTextField.setText("");
-            this.addressTextField.setText("");
-            this.cityTextField.setText("");
-            this.contactNoTextField.setText("");
+            nameTextField.setText("");
+            passwordTextField.setText("");
+            emailTextField.setText("");
+            addressTextField.setText("");
+            cityTextField.setText("");
+            contactNoTextField.setText("");
+
             // Shows sucess message
             JOptionPane.showMessageDialog(this, this.type + " Added Successfully");
         }

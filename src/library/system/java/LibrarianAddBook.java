@@ -199,27 +199,32 @@ public class LibrarianAddBook extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void addButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_addButtonActionPerformed
+        final String comma = ",";
+        final String id = String.valueOf(++fileCount);
+        final String callNo = String.valueOf(this.callNoTextField.getText()).trim();
+        final String name = this.nameTextField.getText().trim();
+        final String author = this.authorTextField.getText().trim();
+        final String publisher = this.publisherTextField.getText().trim();
+        final String quantity = this.quantityTextField.getText().trim();
+        final String issued = "0";
+        final String date = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss").format(new Date());
+
         // input validation
-        if (String.valueOf(this.callNoTextField.getText()).trim().isEmpty()) {
+        if (callNo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter call No.");
-        } else if (this.nameTextField.getText().trim().isEmpty()) {
+        } else if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a name");
-        } else if (this.authorTextField.getText().trim().isEmpty()) {
+        } else if (author.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter an author");
-        } else if (this.publisherTextField.getText().trim().isEmpty()) {
+        } else if (publisher.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a publisher");
-        } else if (this.quantityTextField.getText().trim().isEmpty()) {
+        } else if (quantity.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter a quantity");
-        } else if (!Helpers.isNumeric(this.quantityTextField.getText().trim())) {
+        } else if (!Helpers.isNumeric(quantity)) {
             JOptionPane.showMessageDialog(this, "Invalid quantity", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
-            String comma = ",";
-            SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
             // stores librarian data in a string separated by comma
-            String line = String.valueOf(++fileCount) + comma + this.callNoTextField.getText().trim() + comma
-                    + String.valueOf(this.nameTextField.getText().trim()) + comma
-                    + this.authorTextField.getText().trim() + comma + this.publisherTextField.getText().trim() + comma
-                    + this.quantityTextField.getText().trim() + comma + "0" + comma + formatter.format(new Date());
+            String line = id + comma + callNo + comma + name + comma + author + comma + publisher + comma + quantity + comma + issued + comma + date;
 
             Helpers.appendLineToFile(filename, line);
 

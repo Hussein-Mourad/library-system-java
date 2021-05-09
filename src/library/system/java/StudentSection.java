@@ -30,8 +30,6 @@ public class StudentSection extends javax.swing.JFrame {
         jPanel1 = new javax.swing.JPanel();
         title = new javax.swing.JLabel();
         addLibrarianButton = new javax.swing.JButton();
-        viewProfileButton = new javax.swing.JButton();
-        deleteLibrarianButton = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
@@ -43,20 +41,6 @@ public class StudentSection extends javax.swing.JFrame {
         addLibrarianButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addLibrarianButtonActionPerformed(evt);
-            }
-        });
-
-        viewProfileButton.setText("View Profile");
-        viewProfileButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                viewProfileButtonActionPerformed(evt);
-            }
-        });
-
-        deleteLibrarianButton.setText("Delete Librarian");
-        deleteLibrarianButton.addActionListener(new java.awt.event.ActionListener() {
-            public void actionPerformed(java.awt.event.ActionEvent evt) {
-                deleteLibrarianButtonActionPerformed(evt);
             }
         });
 
@@ -76,8 +60,6 @@ public class StudentSection extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
                     .addComponent(title)
                     .addComponent(addLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(viewProfileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(deleteLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addGap(120, 120, 120))
         );
@@ -86,15 +68,11 @@ public class StudentSection extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title)
-                .addGap(31, 31, 31)
+                .addGap(61, 61, 61)
                 .addComponent(addLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(viewProfileButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(deleteLibrarianButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(23, Short.MAX_VALUE))
+                .addContainerGap(91, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -121,16 +99,6 @@ public class StudentSection extends javax.swing.JFrame {
         this.setVisible(false);
         new AdminAddForm("librarian").setVisible(true);
     }//GEN-LAST:event_addLibrarianButtonActionPerformed
-
-    private void viewProfileButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewProfileButtonActionPerformed
-        this.setVisible(false);
-        new Table("librarian.csv").setVisible(true);
-    }//GEN-LAST:event_viewProfileButtonActionPerformed
-
-    private void deleteLibrarianButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteLibrarianButtonActionPerformed
-        this.setVisible(false);
-        new AdminDeleteForm("librarian").setVisible(true);
-    }//GEN-LAST:event_deleteLibrarianButtonActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
         this.setVisible(false);
@@ -174,10 +142,8 @@ public class StudentSection extends javax.swing.JFrame {
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
     private javax.swing.JButton addLibrarianButton;
-    private javax.swing.JButton deleteLibrarianButton;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutButton;
     private javax.swing.JLabel title;
-    private javax.swing.JButton viewProfileButton;
     // End of variables declaration//GEN-END:variables
 }
