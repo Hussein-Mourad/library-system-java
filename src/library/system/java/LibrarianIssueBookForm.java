@@ -6,6 +6,7 @@
 package library.system.java;
 
 import java.text.ParseException;
+import java.text.SimpleDateFormat;
 import java.util.Date;
 import javax.swing.JOptionPane;
 
@@ -22,6 +23,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
      * Creates new form IssueBookForm
      */
     public LibrarianIssueBookForm() {
+        System.out.println(students.length);
         initComponents();
     }
 
@@ -172,11 +174,11 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
                     .addComponent(returnDateTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
                 .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
                 .addComponent(jLabel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addGap(36, 36, 36)
+                .addGap(14, 14, 14)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
-                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(issueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                    .addComponent(issueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addGap(34, 34, 34))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -211,17 +213,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
                 JOptionPane.showMessageDialog(this, "Invalid Student Id", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             } else {
-                try {
-                    Date todayDate = new Date();
-                    Date returnDate = new SimpleDateFormat("yyyy-MM-dd").parse(this.returnDateTextField.getText().trim());
-                    if (!returnDate.after(todayDate)) {
-                        JOptionPane.showMessageDialog(this, "Invalid date", "Error", JOptionPane.ERROR_MESSAGE);
-                        return false;
-                    }
-                } catch (ParseException ex) {
-                    JOptionPane.showMessageDialog(this, "Invalid date format", "Error", JOptionPane.ERROR_MESSAGE);
-                    Logger.getLogger(LibrarianIssueBookForm.class.getName()).log(Level.SEVERE, null, ex);
-                }
+
             }
         }
 
@@ -245,19 +237,76 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
         }
         return true;
     }
+
+    private boolean isValidDate(String returnDate) {
+        // Validates date
+        try {
+            Date todayDate = new Date();
+            Date formattedReturnDate = new SimpleDateFormat("yyyy-MM-dd").parse(returnDate);
+            if (!formattedReturnDate.after(todayDate)) {
+                return false;
+            }
+        } catch (ParseException ex) {
+            return false;
+        }
+        return true;
+    }
+
+    private boolean isValidStudent(String studentId, String contactNo) {
+        int first = 0;
+        int last = students.length;
+        int mid = (first + last) / 2;
+
+        while (first <= last) {
+            if (Integer.valueOf((String) students[mid][0]) < Integer.valueOf(studentId)) {
+                first = mid + 1;
+            } else if (arr[mid] == key) {
+                System.out.println("Element is found at index: " + mid);
+                break;
+            } else {
+                last = mid - 1;
+            }
+            mid = (first + last) / 2;
+        }
+        if (first > last) {
+            System.out.println("Element is not found!");
+        }
+        for (Object[] student : students) {
+            String id = student[0].toString().trim();
+            String contact = student[7].toString().trim();
+            if (studentId.equals(id) && contactNo.equals(contact)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
     private void issueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueButtonActionPerformed
-        if (this.callNoTextField.getText().trim().isEmpty()) {
+        final String callNo = this.callNoTextField.getText().trim();
+        final String studentId = this.studentIdTextField.getText().trim();
+        final String contactNo = this.contactTextField.getText().trim();
+        final String bookName = this.bookNameTextField.getText().trim();
+        final String returnDate = this.returnDateTextField.getText().trim();
+
+        if (callNo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter book call no");
-        } else if (this.studentIdTextField.getText().trim().isEmpty()) {
+        } else if (studentId.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter student id");
-        } else if (this.contactTextField.getText().trim().isEmpty()) {
+        } else if (contactNo.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter contact number");
-        } else if (this.bookNameTextField.getText().trim().isEmpty()) {
+        } else if (bookName.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter book name");
-        } else if (this.returnDateTextField.getText().trim().isEmpty()) {
-            JOptionPane.showMessageDialog(this, "Please enter book call no");
+        } else if (returnDate.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter a return date");
+        } else if (!Helpers.isNumeric(studentId)) {
+            JOptionPane.showMessageDialog(this, "Student id must be a number");
+        } else if (!isValidDate(returnDate)) {
+            JOptionPane.showMessageDialog(this, "Invalid return data format or value");
         } else {
-            JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
+
+            // Check if the user enters a valid book
+            //
+//            JOptionPane.showMessageDialog(this, "Book Issued Successfully.");
         }
     }//GEN-LAST:event_issueButtonActionPerformed
 
