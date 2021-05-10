@@ -141,6 +141,7 @@ public class AdminDeleteForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -149,18 +150,21 @@ public class AdminDeleteForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void deleteButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_deleteButtonActionPerformed
-        boolean deleted = Helpers.deleteRecord(filename, 0, this.idTextField.getText().trim(), 1, this.nameTextField.getText().trim());
+        int option = JOptionPane.showConfirmDialog(this, "Are you sure you want to delete?", "Confirm", JOptionPane.YES_NO_OPTION);
+        if (option == JOptionPane.YES_OPTION) {
+            boolean deleted = Helpers.deleteRecord(filename, 0, this.idTextField.getText().trim(), 1, this.nameTextField.getText().trim());
 
-        // Show appropriate message
-        if (deleted == true) {
-            // Resets the input fields
-            this.nameTextField.setText("");
-            this.idTextField.setText("");
-            // Shows sucess message
-            JOptionPane.showMessageDialog(this, this.type + " Deleted Successfully");
-        } else {
-            // Shows error message
-            JOptionPane.showMessageDialog(this, this.type + " not found", "Error", JOptionPane.ERROR_MESSAGE);
+            // Show appropriate message
+            if (deleted == true) {
+                // Resets the input fields
+                this.nameTextField.setText("");
+                this.idTextField.setText("");
+                // Shows sucess message
+                JOptionPane.showMessageDialog(this, this.type + " Deleted Successfully");
+            } else {
+                // Shows error message
+                JOptionPane.showMessageDialog(this, this.type + " not found", "Error", JOptionPane.ERROR_MESSAGE);
+            }
         }
 
     }//GEN-LAST:event_deleteButtonActionPerformed

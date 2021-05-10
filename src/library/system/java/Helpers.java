@@ -178,6 +178,17 @@ public class Helpers {
 
     }
 
+    public static String[] getRecordById(String filename, String id) {
+        String[][] data = readTableData(filename);
+        String[] record = null;
+        for (String[] item : data) {
+            if (item[0].equals(id)) {
+                return item;
+            }
+        }
+        return record;
+    }
+
     public static boolean isNumeric(String string) {
         int intValue;
 

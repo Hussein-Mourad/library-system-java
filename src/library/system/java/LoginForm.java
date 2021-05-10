@@ -15,6 +15,7 @@ public class LoginForm extends javax.swing.JFrame {
     String type;
     String filename;
     private String[][] users;
+    private String userId;
 
     /**
      * Creates new form AdminLoginForm
@@ -22,7 +23,7 @@ public class LoginForm extends javax.swing.JFrame {
      * @param type Type of the form
      */
     public LoginForm(String type) {
-       this.type = Helpers.capitalizeFirstLetter(type);
+        this.type = Helpers.capitalizeFirstLetter(type);
         this.filename = Helpers.addFileExtenstion(type + "s", "csv");
         users = Helpers.readTableData(this.filename);
         initComponents();
@@ -147,16 +148,16 @@ public class LoginForm extends javax.swing.JFrame {
                 .addComponent(jPanel2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
                 .addContainerGap())
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(147, 147, 147)
+                .addGap(134, 134, 134)
                 .addComponent(title)
                 .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(22, 22, 22)
+                .addGap(24, 24, 24)
                 .addComponent(title)
-                .addGap(29, 29, 29)
+                .addGap(27, 27, 27)
                 .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                 .addContainerGap(38, Short.MAX_VALUE))
         );
@@ -177,11 +178,13 @@ public class LoginForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isValidUser(String username, String password) {
-        for (Object[] user : users) {
+        for (String[] user : users) {
             if (user[1].equals(username) && user[2].equals(password)) {
+                this.userId = user[0];
                 return true;
             }
         }
@@ -189,27 +192,30 @@ public class LoginForm extends javax.swing.JFrame {
     }
 
     private void loginButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_loginButtonActionPerformed
-        if (this.nameTextField.getText().trim().isEmpty() && String.valueOf(this.passwordTextField.getPassword()).trim().isEmpty()) {
+        String name = this.nameTextField.getText().trim();
+        String password = String.valueOf(this.passwordTextField.getPassword()).trim();
+        if (name.isEmpty() && password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter username and password");
-        } else if (this.nameTextField.getText().trim().isEmpty()) {
+        } else if (name.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter username");
-        } else if (String.valueOf(this.passwordTextField.getPassword()).trim().isEmpty()) {
+        } else if (password.isEmpty()) {
             JOptionPane.showMessageDialog(this, "Please enter password");
-        } else if (isValidUser(this.nameTextField.getText().trim(), String.valueOf(this.passwordTextField.getPassword()).trim())) {
+        } else if (!isValidUser(name, password)) {
+            JOptionPane.showMessageDialog(this, "Invalid username or password");
+        } else {
             this.setVisible(false);
 
-            if (this.type.equals("Admin")) {
-                new AdminSection().setVisible(true);
-
-            } else if (this.type.equals("Librarian")) {
-                new LibrarianSection().setVisible(true);
-
-            } else {
-                new StudentSection().setVisible(true);
-
+            switch (this.type) {
+                case "Admin":
+                    new AdminSection().setVisible(true);
+                    break;
+                case "Librarian":
+                    new LibrarianSection().setVisible(true);
+                    break;
+                default:
+                    new StudentSection(userId).setVisible(true);
+                    break;
             }
-        } else {
-            JOptionPane.showMessageDialog(this, "Invalid username or password");
         }
     }//GEN-LAST:event_loginButtonActionPerformed
 
@@ -265,7 +271,7 @@ public class LoginForm extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new LoginForm("Admin").setVisible(true);
+            new LoginForm("admin").setVisible(true);
         });
     }
 

@@ -72,7 +72,7 @@ public class AdminAddForm extends javax.swing.JFrame {
             }
         });
 
-        addButton.setText("Add Student");
+        addButton.setText("Add " + this.type);
         addButton.addActionListener(new java.awt.event.ActionListener() {
             public void actionPerformed(java.awt.event.ActionEvent evt) {
                 addButtonActionPerformed(evt);
@@ -186,6 +186,7 @@ public class AdminAddForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void cityTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_cityTextFieldActionPerformed

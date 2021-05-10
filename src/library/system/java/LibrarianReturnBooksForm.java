@@ -5,6 +5,11 @@
  */
 package library.system.java;
 
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javax.swing.JOptionPane;
 
 /**
@@ -13,7 +18,10 @@ import javax.swing.JOptionPane;
  */
 public class LibrarianReturnBooksForm extends javax.swing.JFrame {
 
-    private String type;
+    private String[][] books = Helpers.readTableData("books.csv");
+    private String[][] issuedBooks = Helpers.readTableData("issuedbooks.csv");
+    private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
+    private Date todayDate = new Date();
 
     /**
      * Creates new form ReturnBooks
@@ -142,6 +150,7 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
@@ -150,20 +159,57 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
     }//GEN-LAST:event_backButtonActionPerformed
 
     private void returnButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_returnButtonActionPerformed
-        boolean deleted = Helpers.deleteRecord("issuedbooks.csv", 1, this.callNoTextField.getText(), 2, this.idTextField.getText());
+        String callNo = this.callNoTextField.getText().trim();
+        String studentId = this.idTextField.getText().trim();
 
-        // Show appropriate message
-        if (deleted == true) {
-            // Resets the input fields
-            this.callNoTextField.setText("");
-            this.idTextField.setText("");
-            // Shows sucess message
-            JOptionPane.showMessageDialog(this, this.type + " Deleted Successfully");
+        if (callNo.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter book call no");
+        } else if (studentId.isEmpty()) {
+            JOptionPane.showMessageDialog(this, "Please enter student id");
+        } else if (!Helpers.isNumeric(studentId)) {
+            JOptionPane.showMessageDialog(this, "Student id must be a number");
         } else {
-            // Shows error message
-            JOptionPane.showMessageDialog(this, this.type + " not found", "Error", JOptionPane.ERROR_MESSAGE);
-        }
 
+            for (String[] book : issuedBooks) {
+                try {
+                    String bookCallNo = book[1];
+                    String id = book[2];
+                    Date returnDate = new SimpleDateFormat("yyyy-MM-dd").parse(book[6]);
+                    if (bookCallNo.equals(callNo) && id.equals(studentId)) {
+                        if (returnDate.before(todayDate)) {
+                            JOptionPane.showMessageDialog(this, "Note: The student need to pay 10$ as delay penalty");
+                        }
+                        break;
+                    }
+                } catch (ParseException ex) {
+                    Logger.getLogger(LibrarianReturnBooksForm.class.getName()).log(Level.SEVERE, null, ex);
+                }
+            }
+
+            for (String[] book : books) {
+                String bookCallNo = book[1].trim();
+                Integer issuedQuantity = Integer.valueOf(book[6].trim());
+                if (bookCallNo.equals(callNo)) {
+                    book[6] = String.valueOf(issuedQuantity - 1);
+                    Helpers.writeArrayToFile("books.csv", books);
+                    break;
+                }
+            }
+
+            boolean deleted = Helpers.deleteRecord("issuedbooks.csv", 1, callNo, 2, studentId);
+
+            // Show appropriate message
+            if (deleted == true) {
+                // Resets the input fields
+                this.callNoTextField.setText("");
+                this.idTextField.setText("");
+                // Shows sucess message
+                JOptionPane.showMessageDialog(this, "Book returned successfully");
+            } else {
+                // Shows error message
+                JOptionPane.showMessageDialog(this, " Invalid Data", "Error", JOptionPane.ERROR_MESSAGE);
+            }
+        }
     }//GEN-LAST:event_returnButtonActionPerformed
 
     private void idTextFieldActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_idTextFieldActionPerformed
@@ -199,10 +245,8 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
         //</editor-fold>
 
         /* Create and display the form */
-        java.awt.EventQueue.invokeLater(new Runnable() {
-            public void run() {
-                new LibrarianReturnBooksForm().setVisible(true);
-            }
+        java.awt.EventQueue.invokeLater(() -> {
+            new LibrarianReturnBooksForm().setVisible(true);
         });
     }
 

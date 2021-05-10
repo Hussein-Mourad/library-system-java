@@ -5,16 +5,25 @@
  */
 package library.system.java;
 
+import java.util.Arrays;
+
 /**
  *
  * @author hussein
  */
 public class StudentSection extends javax.swing.JFrame {
 
+    private String studentId;
+    private String[] student;
+
     /**
      * Creates new form StudentSection
+     *
+     * @param studentId
      */
-    public StudentSection() {
+    public StudentSection(String studentId) {
+        this.studentId = studentId;
+        this.student = Helpers.getRecordById("students.csv", studentId);
         initComponents();
     }
 
@@ -31,8 +40,23 @@ public class StudentSection extends javax.swing.JFrame {
         title = new javax.swing.JLabel();
         viewIssuedBooks = new javax.swing.JButton();
         logoutButton = new javax.swing.JButton();
+        city = new javax.swing.JLabel();
+        nameLabel = new javax.swing.JLabel();
+        emailLabel = new javax.swing.JLabel();
+        numberLabel = new javax.swing.JLabel();
+        addressLabel = new javax.swing.JLabel();
+        idLabel = new javax.swing.JLabel();
+        idValue = new javax.swing.JLabel();
+        nameValue = new javax.swing.JLabel();
+        emailValue = new javax.swing.JLabel();
+        numberValue = new javax.swing.JLabel();
+        addressValue = new javax.swing.JLabel();
+        cityValue = new javax.swing.JLabel();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
+        setTitle("University Library System");
+        setResizable(false);
+        setSize(new java.awt.Dimension(450, 350));
 
         title.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         title.setText("Student Section");
@@ -51,28 +75,101 @@ public class StudentSection extends javax.swing.JFrame {
             }
         });
 
+        city.setText("City");
+
+        nameLabel.setText("Name");
+
+        emailLabel.setText("Email");
+
+        numberLabel.setText("Number");
+
+        addressLabel.setText("Address");
+
+        idLabel.setText("Id");
+
+        idValue.setText(studentId);
+
+        nameValue.setText(student[1]);
+
+        emailValue.setText(student[3]);
+
+        numberValue.setText(student[5]);
+
+        addressValue.setText(student[4]);
+
+        cityValue.setText(student[6]);
+
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addContainerGap(101, Short.MAX_VALUE)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.CENTER)
-                    .addComponent(title)
-                    .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(120, 120, 120))
+            .addGroup(jPanel1Layout.createSequentialGroup()
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(36, 36, 36)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 53, Short.MAX_VALUE)
+                                .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                            .addGroup(jPanel1Layout.createSequentialGroup()
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idLabel)
+                                    .addComponent(nameLabel)
+                                    .addComponent(emailLabel)
+                                    .addComponent(numberLabel)
+                                    .addComponent(addressLabel)
+                                    .addComponent(city))
+                                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(idValue)
+                                    .addComponent(nameValue)
+                                    .addComponent(emailValue)
+                                    .addComponent(addressValue)
+                                    .addComponent(cityValue)
+                                    .addComponent(numberValue))
+                                .addGap(0, 0, Short.MAX_VALUE))))
+                    .addGroup(javax.swing.GroupLayout.Alignment.LEADING, jPanel1Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(title)))
+                .addContainerGap(javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addContainerGap()
                 .addComponent(title)
-                .addGap(61, 61, 61)
-                .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
-                .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(91, Short.MAX_VALUE))
+                .addGap(27, 27, 27)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(idLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nameLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(emailLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(numberLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addressLabel)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(city))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addComponent(idValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(nameValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(emailValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(cityValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(addressValue)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(numberValue)))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 29, Short.MAX_VALUE)
+                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap())
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -93,11 +190,30 @@ public class StudentSection extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void viewIssuedBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksActionPerformed
+        String[] tableHeaders = Helpers.readTableHeaders("issuedbooks.csv");
+        String[][] tableData = Helpers.readTableData("issuedbooks.csv");
+        String[][] tableDataFiltered = new String[tableData.length][tableData[0].length];
+        System.out.println(tableData[0].length);
+        // Filters table data to show only books related to the user
+        for (int i = 0; i < tableData.length; i++) {
+            System.out.println(studentId + tableData[i][2]);
+            if (tableData[i][2].equals(studentId)) {
+                tableDataFiltered[i] = tableData[i];
+            }
+        }
+        for (String[] strings : tableDataFiltered) {
+            System.out.println(Arrays.toString(strings));
+
+        }
+
         this.setVisible(false);
-        new Table("issuedbooks.csv", "student").setVisible(true);
+        Table table = new Table("student", Integer.valueOf(studentId));
+        table.setTableInfo(tableHeaders, tableDataFiltered);
+        table.setVisible(true);
     }//GEN-LAST:event_viewIssuedBooksActionPerformed
 
     private void logoutButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_logoutButtonActionPerformed
@@ -134,13 +250,25 @@ public class StudentSection extends javax.swing.JFrame {
 
         /* Create and display the form */
         java.awt.EventQueue.invokeLater(() -> {
-            new StudentSection().setVisible(true);
+            new StudentSection("1").setVisible(true);
         });
     }
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private javax.swing.JLabel addressLabel;
+    private javax.swing.JLabel addressValue;
+    private javax.swing.JLabel city;
+    private javax.swing.JLabel cityValue;
+    private javax.swing.JLabel emailLabel;
+    private javax.swing.JLabel emailValue;
+    private javax.swing.JLabel idLabel;
+    private javax.swing.JLabel idValue;
     private javax.swing.JPanel jPanel1;
     private javax.swing.JButton logoutButton;
+    private javax.swing.JLabel nameLabel;
+    private javax.swing.JLabel nameValue;
+    private javax.swing.JLabel numberLabel;
+    private javax.swing.JLabel numberValue;
     private javax.swing.JLabel title;
     private javax.swing.JButton viewIssuedBooks;
     // End of variables declaration//GEN-END:variables

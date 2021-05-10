@@ -14,11 +14,24 @@ public class Table extends javax.swing.JFrame {
     private String section;
     private String[][] tableData;
     private String[] tableHeaders;
+    private int userId;
+
+    /**
+     * Creates new form LibrariansTable
+     *
+     * @param section
+     * @param userId
+     */
+    public Table(String section, int userId) {
+        this.section = section;
+        this.userId = userId;
+    }
 
     /**
      * Creates new form LibrariansTable
      *
      * @param filename
+     * @param section
      */
     public Table(String filename, String section) {
         this.filename = filename;
@@ -26,7 +39,12 @@ public class Table extends javax.swing.JFrame {
         tableData = Helpers.readTableData(this.filename);
         tableHeaders = Helpers.readTableHeaders(this.filename);
         initComponents();
-        this.section = section;
+    }
+
+    public void setTableInfo(String[] tableHeaders, String[][] tableData) {
+        this.tableHeaders = tableHeaders;
+        this.tableData = tableData;
+        initComponents();
     }
 
     /**
@@ -97,18 +115,25 @@ public class Table extends javax.swing.JFrame {
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private void backButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_backButtonActionPerformed
-        if (section.equals("admin")) {
-            this.setVisible(false);
-            new AdminSection().setVisible(true);
-        } else if (section.equals("librarian")) {
-            this.setVisible(false);
-            new LibrarianSection().setVisible(true);
-        } else if (section.equals("student")) {
-            this.setVisible(false);
-            new LibrarianSection().setVisible(true);
+        switch (section) {
+            case "admin":
+                this.setVisible(false);
+                new AdminSection().setVisible(true);
+                break;
+            case "librarian":
+                this.setVisible(false);
+                new LibrarianSection().setVisible(true);
+                break;
+            case "student":
+                this.setVisible(false);
+                new StudentSection(String.valueOf(userId)).setVisible(true);
+                break;
+            default:
+                break;
         }
     }//GEN-LAST:event_backButtonActionPerformed
 

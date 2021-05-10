@@ -20,9 +20,12 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
 
     private String[][] books = Helpers.readTableData("books.csv");
     private String[][] students = Helpers.readTableData("students.csv");
-    private int issuedBooksCount = Helpers.getFileCount("issuedbooks.csv");
+    private String[][] issuedBooks = Helpers.readTableData("issuedbooks.csv");
+    private int issuedBooksCount = issuedBooks.length;
     private String studentName;
     private Date todayDate = new Date();
+    private long time = todayDate.getTime() + 14 * 24 * 60 * 60 * 1000; // Adds 14 days to today
+    private Date maxAllowedDate = new Date(time);  // Maximum allowed date to return the book
     private SimpleDateFormat formatter = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss");
 
     /**
@@ -129,7 +132,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(185, 185, 185)
                 .addComponent(title)
-                .addContainerGap(202, Short.MAX_VALUE))
+                .addContainerGap(190, Short.MAX_VALUE))
             .addGroup(jPanel1Layout.createSequentialGroup()
                 .addGap(32, 32, 32)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -183,7 +186,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(issueButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 35, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addGap(34, 34, 34))
+                .addGap(22, 22, 22))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -192,26 +195,35 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addContainerGap())
         );
 
         pack();
+        setLocationRelativeTo(null);
     }// </editor-fold>//GEN-END:initComponents
 
     private boolean isValidDate(String returnDate) {
         // Validates date
         try {
             Date formattedReturnDate = new SimpleDateFormat("yyyy-MM-dd").parse(returnDate);
+            if (!formattedReturnDate.before(maxAllowedDate)) {
+                JOptionPane.showMessageDialog(this, "Invalid Return data max allowed peroid is 14 days", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
             if (!formattedReturnDate.after(todayDate)) {
+                JOptionPane.showMessageDialog(this, "Invalid return date", "Error", JOptionPane.ERROR_MESSAGE);
                 return false;
             }
         } catch (ParseException ex) {
+            JOptionPane.showMessageDialog(this, "Invalid date format", "Error", JOptionPane.ERROR_MESSAGE);
             return false;
         }
         return true;
@@ -267,6 +279,31 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
         return -1;
     }
 
+    private boolean isStudentIssuedThisBook(String id, String callNo) {
+        for (String[] book : issuedBooks) {
+            String studentId = book[2].trim();
+            String bookCallNo = book[1].trim();
+            if (bookCallNo.equals(callNo) && studentId.equals(id)) {
+                return true;
+            }
+        }
+        return false;
+    }
+
+    private boolean canStudentIssue(String studentId) {
+        int numberOfIssuedBooks = 0;
+        for (String[] book : issuedBooks) {
+            if (book[2].equals(studentId)) {
+                numberOfIssuedBooks++;
+            }
+            if (numberOfIssuedBooks == 3) {
+                JOptionPane.showMessageDialog(this, "The student issued the maximum number of books", "Error", JOptionPane.ERROR_MESSAGE);
+                return false;
+            }
+        }
+        return true;
+    }
+
     private void issueButtonActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_issueButtonActionPerformed
         final String comma = ",";
         final String callNo = this.callNoTextField.getText().trim();
@@ -289,10 +326,12 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
             JOptionPane.showMessageDialog(this, "Student id must be a number");
         } else if (!Helpers.isNumeric(contactNo)) {
             JOptionPane.showMessageDialog(this, "Contact number must be a number");
-        } else if (!isValidDate(returnDate)) {
-            JOptionPane.showMessageDialog(this, "Invalid return date format or value", "Error", JOptionPane.ERROR_MESSAGE);
         } else if (!isValidStudent(studentId, contactNo)) {
             JOptionPane.showMessageDialog(this, "Invalid student data", "Error", JOptionPane.ERROR_MESSAGE);
+        } else if (!canStudentIssue(studentId)) {
+        } else if (!isValidDate(returnDate)) {
+        } else if (isStudentIssuedThisBook(studentId, callNo)) {
+            JOptionPane.showMessageDialog(this, "Student issued this book before", "Error", JOptionPane.ERROR_MESSAGE);
         } else {
             int bookId = isValidBook(bookName, callNo);
             switch (bookId) {
@@ -306,7 +345,7 @@ public class LibrarianIssueBookForm extends javax.swing.JFrame {
                     // adds required data to file
                     String id = String.valueOf(++issuedBooksCount);
                     String now = formatter.format(todayDate);
-                    Date formattedReturnDate;
+                    String formattedReturnDate;
                     try {
                         formattedReturnDate = formatter.format(new SimpleDateFormat("yyyy-MM-dd").parse(returnDate));
                         String issuedBookData = id + comma + callNo + comma + studentId + comma + studentName + comma + contactNo + comma + now + comma + formattedReturnDate;
