@@ -1,5 +1,4 @@
 Id,Name,Password,Email,Address,City,Contact no.
-1,hussein,test,fdkjfd@app.com,jfdfd,dfjdkf,0100
-2,omar,test,fdkjfd@app.com,jfdfd,dfjdkf,0101
-3,ahmed,test,ahmed@app.com,123 main st,alexandria,0102
-4,ahmed,test,ahmed@app.com,123 main st,alex,0100
+1,hussein,test,hussein@app.com,123 main st,alex,0100
+2,ahmed,test,ahmed@student.com,123 main st,alex,0101
+3,mohamed,test,moh@edu.eg,123 main st,alex,0102

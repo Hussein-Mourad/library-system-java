@@ -59,8 +59,8 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
 
         jPanel1.setToolTipText("");
 
-        title.setFont(new java.awt.Font("Tahoma", 1, 14)); // NOI18N
-        title.setText("RETURN BOOK");
+        title.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
+        title.setText("Return Book");
 
         callNoLabel.setText("BookCallNo");
 
@@ -126,7 +126,7 @@ public class LibrarianReturnBooksForm extends javax.swing.JFrame {
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(idTextField, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(idLabel))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 48, Short.MAX_VALUE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, 45, Short.MAX_VALUE)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(backButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(returnButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))

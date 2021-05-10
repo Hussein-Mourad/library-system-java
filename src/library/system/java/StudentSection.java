@@ -5,8 +5,6 @@
  */
 package library.system.java;
 
-import java.util.Arrays;
-
 /**
  *
  * @author hussein
@@ -55,9 +53,10 @@ public class StudentSection extends javax.swing.JFrame {
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
         setTitle("University Library System");
-        setPreferredSize(new java.awt.Dimension(375, 320));
+        setMinimumSize(new java.awt.Dimension(350, 300));
+        setPreferredSize(new java.awt.Dimension(3, 3));
         setResizable(false);
-        setSize(new java.awt.Dimension(350, 300));
+        setSize(new java.awt.Dimension(375, 310));
 
         title.setFont(new java.awt.Font("Ubuntu", 0, 16)); // NOI18N
         title.setText("Student Section");
@@ -105,22 +104,16 @@ public class StudentSection extends javax.swing.JFrame {
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(111, 111, 111)
-                .addComponent(title)
-                .addContainerGap(125, Short.MAX_VALUE))
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addGap(26, 26, 26)
-                .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.TRAILING)
-                    .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
-                    .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-                        .addComponent(idLabel)
-                        .addComponent(nameLabel)
-                        .addComponent(emailLabel)
-                        .addComponent(numberLabel)
-                        .addComponent(addressLabel)
-                        .addComponent(city)))
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                     .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(41, 41, 41)
+                        .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(idLabel)
+                            .addComponent(nameLabel)
+                            .addComponent(emailLabel)
+                            .addComponent(numberLabel)
+                            .addComponent(addressLabel)
+                            .addComponent(city))
                         .addGap(57, 57, 57)
                         .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
                             .addComponent(idValue)
@@ -129,10 +122,15 @@ public class StudentSection extends javax.swing.JFrame {
                             .addComponent(addressValue)
                             .addComponent(cityValue)
                             .addComponent(numberValue)))
-                    .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                        .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE)
-                        .addGap(20, 20, 20))))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(33, 33, 33)
+                        .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 120, javax.swing.GroupLayout.PREFERRED_SIZE)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                        .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 155, javax.swing.GroupLayout.PREFERRED_SIZE))
+                    .addGroup(jPanel1Layout.createSequentialGroup()
+                        .addGap(119, 119, 119)
+                        .addComponent(title)))
+                .addContainerGap(57, Short.MAX_VALUE))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -165,11 +163,11 @@ public class StudentSection extends javax.swing.JFrame {
                         .addComponent(addressValue)
                         .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
                         .addComponent(numberValue)))
-                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
+                .addGap(18, 18, 18)
                 .addGroup(jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
                     .addComponent(viewIssuedBooks, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE)
                     .addComponent(logoutButton, javax.swing.GroupLayout.PREFERRED_SIZE, 40, javax.swing.GroupLayout.PREFERRED_SIZE))
-                .addContainerGap())
+                .addContainerGap(20, Short.MAX_VALUE))
         );
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
@@ -178,8 +176,7 @@ public class StudentSection extends javax.swing.JFrame {
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(layout.createSequentialGroup()
                 .addContainerGap()
-                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
-                .addContainerGap())
+                .addComponent(jPanel1, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
         );
         layout.setVerticalGroup(
             layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
@@ -196,18 +193,18 @@ public class StudentSection extends javax.swing.JFrame {
     private void viewIssuedBooksActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_viewIssuedBooksActionPerformed
         String[] tableHeaders = Helpers.readTableHeaders("issuedbooks.csv");
         String[][] tableData = Helpers.readTableData("issuedbooks.csv");
-        String[][] tableDataFiltered = new String[tableData.length][tableData[0].length];
-        System.out.println(tableData[0].length);
+        String[][] tableDataFiltered = null;
+
+        try {
+            tableDataFiltered = new String[tableData.length][tableData[0].length];
+        } catch (ArrayIndexOutOfBoundsException ex) {
+            // do nothing
+        }
         // Filters table data to show only books related to the user
         for (int i = 0; i < tableData.length; i++) {
-            System.out.println(studentId + tableData[i][2]);
             if (tableData[i][2].equals(studentId)) {
                 tableDataFiltered[i] = tableData[i];
             }
-        }
-        for (String[] strings : tableDataFiltered) {
-            System.out.println(Arrays.toString(strings));
-
         }
 
         this.setVisible(false);
